@@ -5,10 +5,10 @@
   --background: #ffffff;
   --foreground: #171717;
   /* Brand colors */
-  --primary: #9854cb; /* purple */
-  --secondary: #6437a0; /* deep purple */
-  --tertiary: #eec9ff; /* light purple */
-  --quaternary: #9d1cd8; /* very light purple */
+  --primary: #8B5CF6; /* purple */
+  --secondary: #0FB7A7; /* deep purple */
+  --tertiary: #E2E8F0; /* light purple */
+  --quaternary: #64748B; /* very light purple */
   --white: #ffffff;
   --black: #000000;
 }
