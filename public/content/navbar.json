@@ -1,0 +1,9 @@
+{
+  "brand": "Sue Loney",
+  "links": [
+    { "label": "Home", "href": "/" },
+    { "label": "About Sue Loney", "href": "/about" },
+    { "label": "Order A Transcript", "href": "/order" },
+    { "label": "Contact", "href": "/contact" }
+  ]
+}

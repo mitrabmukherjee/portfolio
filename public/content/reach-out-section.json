@@ -1,0 +1,24 @@
+{
+  "title": "Reach out today",
+  "subtitle": "For any additional questions, get in touch",
+  "contactMethods": [
+    {
+      "icon": "Phone",
+      "title": "GIVE US A CALL",
+      "content": "+1-855-443-2748",
+      "href": "tel:+18554432748"
+    },
+    {
+      "icon": "Mail",
+      "title": "SEND AN EMAIL",
+      "content": "awalker@actontario.ca",
+      "href": "mailto:awalker@actontario.ca"
+    },
+    {
+      "icon": "Clock",
+      "title": "GET IN TOUCH",
+      "content": "Make a Quick Enquiry",
+      "href": "#contact"
+    }
+  ]
+}

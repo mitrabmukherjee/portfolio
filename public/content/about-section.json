@@ -1,0 +1,15 @@
+{
+  "title": "About",
+  "name": "Sue Loney",
+  "subtitle": "AUTHORIZED COURT TRANSCRIPTIONIST",
+  "description": "I have been a certified transcriber for the Province of Nova Scotia since September of 2023.",
+  "actId": "2661015794",
+  "image": {
+    "src": "/images/Rella-Alex-Walker-00340-1.jpg",
+    "alt": "Sue Loney"
+  },
+  "button": {
+    "text": "Get in touch",
+    "href": "#contact"
+  }
+}

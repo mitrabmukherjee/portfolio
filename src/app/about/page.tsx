@@ -1,0 +1,107 @@
+import Image from "next/image";
+import ReachOutSection from "@/app/components/ReachOutSection";
+
+export default function AboutPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Page Header */}
+      <div className="bg-secondary py-4">
+        <div className="mx-auto max-w-7xl w-full px-4">
+          <h1 className="text-3xl md:text-4xl text-white text-center font-alice">
+            About Sue Loney
+          </h1>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="relative bg-white py-16">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-bottom-left bg-no-repeat opacity-100"
+          style={{
+            backgroundImage: "url('/images/innerbg.jpg')",
+            backgroundPosition: "left center",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-7xl w-full px-4">
+          <div className="flex flex-col items-center text-center space-y-8">
+            {/* Profile Image */}
+            <div className="flex-shrink-0">
+              <div className="relative">
+                <Image
+                  src="/images/Rella-Alex-Walker-00340-1.jpg"
+                  alt="Sue Loney"
+                  width={300}
+                  height={300}
+                  className="rounded-full border-4 border-primary object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Title and ID */}
+            <div className="mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+                AUTHORIZED COURT TRANSCRIPTIONIST
+              </h2>
+              <p className="text-xl font-semibold text-black">
+                ACT ID: 2661015794
+              </p>
+            </div>
+
+            {/* Biography Content */}
+            <div className="prose prose-lg max-w-4xl text-black leading-relaxed">
+              {/* <p className="mb-6">
+                Before graduating from George Brown College as a court
+                reporter/stenographer in 1998, Alex took the opportunity to sit
+                in on various court proceedings at the Superior Court of Justice
+                and gained employment as a scopist proofreading and editing
+                transcripts for a court reporter who saw her potential. Since
+                then, she has worked in both official and freelance environments
+                as a court reporter, captioner, and notetaker. For the past 10
+                years, her focus has primarily been on scoping transcripts for
+                other court reporters here in Canada and in the United States.
+                Alex became an Authorized Court Transcriptionist (ACT) in 2016.
+                She recently joined the Videoplus team and looks forward to
+                assisting you.
+              </p> */}
+            </div>
+
+            {/* Order Button */}
+            <div className="flex justify-center">
+              <div className="relative">
+                {/* Pulse animation rings using CSS */}
+                <div className="absolute inset-0 rounded-lg border border-primary pulse-ring-1" />
+                <div className="absolute inset-0 rounded-lg border border-primary pulse-ring-2" />
+                <div className="absolute inset-0 rounded-lg border border-primary pulse-ring-3" />
+
+                <a
+                  href="/order"
+                  className="relative inline-flex items-center gap-3 bg-primary hover:bg-secondary text-white font-bold py-4 px-8 rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl z-10"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                  ORDER A TRANSCRIPT
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ReachOutSection />
+    </div>
+  );
+}
