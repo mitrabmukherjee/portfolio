@@ -827,65 +827,6 @@ export default function OrderTranscriptPage() {
                       </div>
                     </div>
                   </div>
-
-                  {/* Upload Portal Section */}
-                  <div className="p-6 rounded-lg">
-                    <h3 className="text-xl font-semibold text-black mb-6">
-                      Recording Upload Section
-                    </h3>
-
-                    {/* Instructions */}
-                    <div className="mb-6 p-4 bg-white border border-gray-200 rounded-md">
-                      <h4 className="font-semibold text-black mb-2">
-                        Upload Instructions
-                      </h4>
-                      <ul className="text-sm text-gray-700 space-y-1">
-                        <li>
-                          In order to send us files you must first
-                          compress/zip the files and then send the
-                          zip/compressed file to us.
-                        </li>
-                        <li>
-                          Annotations can also be uploaded through the
-                          ShareFile portal.
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* File Upload Portal */}
-                    <h4 className="text-lg font-medium text-gray-800 mb-4">
-                      Your online transcript order portal.
-                    </h4>
-                    <div className="relative">
-                      <iframe
-                        src="https://videoplustranscriptionserviceskimfess.sharefile.com/remoteupload/eb067b13-7e35-46f9-b61f-da155da1e7e2"
-                        width="100%"
-                        height="500"
-                        frameBorder="0"
-                        className="w-full border border-gray-200 rounded"
-                        title="Secure File Upload Portal"
-                        scrolling="auto"
-                        id="sfRemoteUploadFrame"
-                      />
-                      <noscript>
-                        <div className="p-4 text-center">
-                          <p className="text-gray-700 mb-2">
-                            Your browser does not support iframes. Please
-                            visit the link directly:
-                          </p>
-                          <a
-                            href="https://videoplustranscriptionserviceskimfess.sharefile.com/remoteupload/eb067b13-7e35-46f9-b61f-da155da1e7e2"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline"
-                          >
-                            Open File Upload Portal
-                          </a>
-                        </div>
-                      </noscript>
-                    </div>
-                  </div>
-
                   {/* Submit Section */}
                   <div className="p-6 text-center">
                     <button
