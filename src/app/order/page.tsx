@@ -1,7 +1,119 @@
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import ReachOutSection from "@/app/components/ReachOutSection";
 
 export default function OrderTranscriptPage() {
+  const initialFormData = {
+    // Case Details
+    styleOfCause: "",
+    proceedingDates: [
+      {
+        date: "",
+        justiceName: "",
+      },
+    ],
+    crownCounselName: "",
+    defenceCounselName: "",
+    courtFileNumber: "",
+    courtLocation: "",
+
+    // Additional Details About the Order
+    preferredACT: "",
+    copyType: "",
+    numberOfCopies: 1,
+    emailCopy: "",
+    quoteRequired: "",
+    dueDate: "",
+    preferredContactMethod: "",
+    additionalComments: "",
+    usedForAppeal: "",
+    appealNumber: "",
+
+    // Ordering Party Details
+    orderingPartyName: "",
+    companyName: "",
+    designation: "",
+    streetAddress: "",
+    city: "",
+    province: "",
+    postalCode: "",
+    officeNumber: "",
+    cellNumber: "",
+    emailAddress: "",
+  };
+
+  // State for form data
+  const [formData, setFormData] = useState(initialFormData);
+
+  // State for form submission
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Handler for regular input changes
+  const handleInputChange = (field: string, value: string | number) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  // Handler for proceeding dates array
+  const handleProceedingDateChange = (
+    index: number,
+    field: string,
+    value: string
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      proceedingDates: prev.proceedingDates.map((item, i) =>
+        i === index ? { ...item, [field]: value } : item
+      ),
+    }));
+  };
+
+  // Add new proceeding date
+  const addProceedingDate = () => {
+    setFormData((prev) => ({
+      ...prev,
+      proceedingDates: [
+        ...prev.proceedingDates,
+        {
+          date: "",
+          justiceName: "",
+        },
+      ],
+    }));
+  };
+
+  // Remove proceeding date
+  const removeProceedingDate = (index: number) => {
+    if (formData.proceedingDates.length > 1) {
+      setFormData((prev) => ({
+        ...prev,
+        proceedingDates: prev.proceedingDates.filter((_, i) => i !== index),
+      }));
+    }
+  };
+
+  // Handler for form submission
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Add your form submission logic here
+      console.log("Form submitted:", formData);
+      alert("Form submitted successfully!");
+      setFormData({ ...initialFormData });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Page Header */}
@@ -66,241 +178,726 @@ export default function OrderTranscriptPage() {
                   </h2>
                 </div>
 
-                <form className="space-y-6">
-                  {/* Row 1 */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-black mb-2">
-                        Name of Proceeding: *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black bg-white"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-black mb-2">
-                        ARE THESE BEING USED FOR APPEAL: *
-                      </label>
-                      <select
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-black"
-                      >
-                        <option value="">Select</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-black mb-2">
-                        APPEAL NUMBER: *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white placeholder:text-black"
-                        placeholder="Enter appeal number"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Row 2 */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-black mb-2">
-                        COURT LEVEL: *
-                      </label>
-                      <select
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-black"
-                      >
-                        <option value="">Select</option>
-                        <option value="superior">Superior Court</option>
-                        <option value="ontario">Ontario Court</option>
-                        <option value="federal">Federal Court</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-black mb-2">
-                        COURT LOCATION: *
-                      </label>
-                      <select
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-black"
-                      >
-                        <option value="">Select</option>
-                        <option value="toronto">Toronto</option>
-                        <option value="ottawa">Ottawa</option>
-                        <option value="hamilton">Hamilton</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-black mb-2">
-                        TYPE OF RECORDING: *
-                      </label>
-                      <select
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-black"
-                      >
-                        <option value="">Select</option>
-                        <option value="audio">Audio</option>
-                        <option value="video">Video</option>
-                        <option value="digital">Digital</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Proceeding List Section */}
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">
-                      PROCEEDING LIST
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* Case Details Section */}
+                  <div className="p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-black mb-6">
+                      Case Details
                     </h3>
-                    <div className="border border-gray-300 rounded-lg p-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Style of Cause */}
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Style of Cause *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.styleOfCause}
+                          onChange={(e) =>
+                            handleInputChange("styleOfCause", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter style of cause (e.g., R. v. Smith)"
+                        />
+                      </div>
+
+                      {/* Crown Counsel Name */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Crown Counsel Name
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.crownCounselName}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "crownCounselName",
+                              e.target.value
+                            )
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter crown counsel name"
+                        />
+                      </div>
+
+                      {/* Defence Counsel Name */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Defence Counsel Name
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.defenceCounselName}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "defenceCounselName",
+                              e.target.value
+                            )
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter defence counsel name"
+                        />
+                      </div>
+
+                      {/* Court File Number */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Court File Number
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.courtFileNumber}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "courtFileNumber",
+                              e.target.value
+                            )
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter court file number"
+                        />
+                      </div>
+
+                      {/* Court Location */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Court Location *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.courtLocation}
+                          onChange={(e) =>
+                            handleInputChange("courtLocation", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter court location"
+                        />
+                      </div>
+                    </div>
+                    {/* Proceeding Dates Dynamic Section */}
+                    <div className="mt-6">
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-semibold">
-                          PROCEEDING DETAILS 1
-                        </span>
+                        <h4 className="text-lg font-semibold text-black">
+                          Date(s) of Proceeding
+                        </h4>
                         <button
                           type="button"
-                          className="text-red-500 hover:text-red-700"
+                          onClick={addProceedingDate}
+                          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors flex items-center"
                         >
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
+                          <span className="mr-2">+</span> Add Date
                         </button>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                          <label className="block text-sm font-semibold text-black mb-2">
-                            DATE OF PROCEEDING: *
-                          </label>
-                          <input
-                            type="text"
-                            required
-                            placeholder="dd/mm/yyyy"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white placeholder:text-black"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-black mb-2">
-                            PRESIDING OFFICIAL:
-                          </label>
-                          <input
-                            type="text"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white placeholder:text-black"
-                            placeholder="Enter official name"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-black mb-2">
-                            COURTROOM
-                          </label>
-                          <input
-                            type="text"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white placeholder:text-black"
-                            placeholder="Enter courtroom"
-                          />
-                        </div>
+
+                      <div className="space-y-4">
+                        {formData.proceedingDates.map((proceeding, index) => (
+                          <div
+                            key={index}
+                            className="p-4 rounded-lg border border-gray-200"
+                          >
+                            <div className="flex items-center justify-between mb-4">
+                              <h5 className="text-md font-medium text-gray-800">
+                                Date {index + 1} {index === 0 ? "*" : ""}
+                              </h5>
+                              {formData.proceedingDates.length > 1 && (
+                                <button
+                                  type="button"
+                                  onClick={() => removeProceedingDate(index)}
+                                  className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition-colors text-sm"
+                                >
+                                  Remove
+                                </button>
+                              )}
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-black mb-2">
+                                  Date of Proceeding:{" "}
+                                  {index === 0 ? "*" : ""}
+                                </label>
+                                <input
+                                  type="date"
+                                  required={index === 0}
+                                  value={proceeding.date}
+                                  onChange={(e) =>
+                                    handleProceedingDateChange(
+                                      index,
+                                      "date",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-black mb-2">
+                                  Justice Name:
+                                </label>
+                                <input
+                                  type="text"
+                                  value={proceeding.justiceName}
+                                  onChange={(e) =>
+                                    handleProceedingDateChange(
+                                      index,
+                                      "justiceName",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                                  placeholder="Enter justice name"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      className="mt-4 bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
-                    >
-                      Add More +
-                    </button>
                   </div>
 
-                  {/* Content to be Transcribed */}
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">
-                      CONTENT TO BE TRANSCRIBED: *
+                  {/* Additional Details About the Order Section */}
+                  <div className="p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-black mb-6">
+                      Additional Details About the Order
                     </h3>
-                    <div className="space-y-3">
-                      <label className="flex items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Preferred ACT */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Preferred Certified Transcriptionist
+                        </label>
                         <input
-                          type="checkbox"
-                          className="mr-3 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded bg-white"
+                          type="text"
+                          value={formData.preferredACT}
+                          onChange={(e) =>
+                            handleInputChange("preferredACT", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter Preferred Certified Transcriptionist"
                         />
-                        <span className="text-black">Complete Proceeding</span>
-                      </label>
-                      <label className="flex items-center">
+                      </div>
+
+                      {/* Copy Type */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-3">
+                          Number of Copies *
+                        </label>
+                        <div className="flex space-x-4 mb-4">
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="copyType"
+                              value="electronic"
+                              checked={formData.copyType === "electronic"}
+                              onChange={(e) =>
+                                handleInputChange("copyType", e.target.value)
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">
+                              Electronic Copy
+                            </span>
+                          </label>
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="copyType"
+                              value="hard"
+                              checked={formData.copyType === "hard"}
+                              onChange={(e) =>
+                                handleInputChange("copyType", e.target.value)
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">Hard Copy</span>
+                          </label>
+                        </div>
+                        {formData.copyType === "hard" && (
+                          <input
+                            type="number"
+                            min="1"
+                            max="50"
+                            value={formData.numberOfCopies}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "numberOfCopies",
+                                parseInt(e.target.value) || 1
+                              )
+                            }
+                            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                            placeholder="Enter number of hard copies"
+                          />
+                        )}
+                      </div>
+
+                      {/* Email Copy */}
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Additional Email Address
+                        </label>
                         <input
-                          type="checkbox"
-                          className="mr-3 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded bg-white"
+                          type="email"
+                          value={formData.emailCopy}
+                          onChange={(e) =>
+                            handleInputChange("emailCopy", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter email address"
                         />
-                        <span className="text-black">
-                          Excerpt of Proceeding - Describe below
-                        </span>
-                      </label>
-                      <label className="flex items-center">
+                      </div>
+
+                      {/* Quote Required */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-3">
+                          Quote Required *
+                        </label>
+                        <div className="flex space-x-4">
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="quoteRequired"
+                              value="yes"
+                              checked={formData.quoteRequired === "yes"}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "quoteRequired",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">Yes</span>
+                          </label>
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="quoteRequired"
+                              value="no"
+                              checked={formData.quoteRequired === "no"}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "quoteRequired",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">No</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Required Due Date / Turnaround Time */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Required Due Date / Turnaround Time *
+                        </label>
                         <input
-                          type="checkbox"
-                          className="mr-3 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded bg-white"
+                          type="date"
+                          required
+                          min={new Date().toISOString().split("T")[0]}
+                          value={formData.dueDate}
+                          onChange={(e) =>
+                            handleInputChange("dueDate", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
                         />
-                        <span className="text-black">
-                          Evidence of Witnesses - Describe below
-                        </span>
-                      </label>
-                      <label className="flex items-center">
-                        <input
-                          type="checkbox"
-                          className="mr-3 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded bg-white"
+                      </div>
+
+                      {/* Preferred Contact Method */}
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-black mb-3">
+                          Preferred Contact Method *
+                        </label>
+                        <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="preferredContactMethod"
+                              value="EMAIL"
+                              checked={
+                                formData.preferredContactMethod === "EMAIL"
+                              }
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "preferredContactMethod",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">Email</span>
+                          </label>
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="preferredContactMethod"
+                              value="TELEPHONE"
+                              checked={
+                                formData.preferredContactMethod === "TELEPHONE"
+                              }
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "preferredContactMethod",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">Telephone</span>
+                          </label>
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="preferredContactMethod"
+                              value="TEXT"
+                              checked={
+                                formData.preferredContactMethod === "TEXT"
+                              }
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "preferredContactMethod",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">Text</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Additional Comments */}
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Additional Comments
+                        </label>
+                        <textarea
+                          rows={4}
+                          value={formData.additionalComments}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "additionalComments",
+                              e.target.value
+                            )
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter any additional comments or requirements"
                         />
-                        <span className="text-black">Reasons for Judgment</span>
-                      </label>
-                      <label className="flex items-center">
-                        <input
-                          type="checkbox"
-                          className="mr-3 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded bg-white"
-                        />
-                        <span className="text-black">
-                          Other - Describe below
-                        </span>
-                      </label>
+                      </div>
+
+                      {/* Are these being used for Appeal */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-3">
+                          Are these being used for Appeal? *
+                        </label>
+                        <div className="flex space-x-4">
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="usedForAppeal"
+                              value="yes"
+                              checked={formData.usedForAppeal === "yes"}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "usedForAppeal",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">Yes</span>
+                          </label>
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="usedForAppeal"
+                              value="no"
+                              checked={formData.usedForAppeal === "no"}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "usedForAppeal",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">No</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Appeal Number - Conditional Field */}
+                      {formData.usedForAppeal === "yes" && (
+                        <div>
+                          <label className="block text-sm font-medium text-black mb-2">
+                            Appeal Number
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.appealNumber}
+                            onChange={(e) =>
+                              handleInputChange("appealNumber", e.target.value)
+                            }
+                            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                            placeholder="Enter appeal number"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {/* Number of Hard Copies */}
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">
-                      NUMBER OF HARD COPIES REQUESTED: *
+                  {/* Ordering Party Details Section */}
+                  <div className="p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-black mb-6">
+                      Ordering Party Details
                     </h3>
-                    <select
-                      required
-                      className="w-full max-w-xs px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-black"
-                    >
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </select>
-                    <p className="text-sm text-gray-600 mt-2">
-                      Printed hard copies are $0.80 per page in addition to the
-                      base rate.
-                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Ordering Party Name */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.orderingPartyName}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "orderingPartyName",
+                              e.target.value
+                            )
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter your full name"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.emailAddress}
+                          onChange={(e) =>
+                            handleInputChange("emailAddress", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter email address"
+                        />
+                      </div>
+
+                      {/* Cell Number */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Cell Number *
+                        </label>
+                        <input
+                          type="tel"
+                          value={formData.cellNumber}
+                          onChange={(e) =>
+                            handleInputChange("cellNumber", e.target.value)
+                          }
+                          required
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter cell number"
+                        />
+                      </div>
+
+                      <div className="">
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Company Name
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.companyName}
+                          onChange={(e) =>
+                            handleInputChange("companyName", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter company name"
+                        />
+                      </div>
+
+                      {/* Designation */}
+                      <div className="w-full md:col-span-1">
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Designation
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.designation}
+                          onChange={(e) =>
+                            handleInputChange("designation", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter designation/title"
+                        />
+                      </div>
+
+                      {/* Street Address */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Street Address
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.streetAddress}
+                          onChange={(e) =>
+                            handleInputChange("streetAddress", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter street address"
+                        />
+                      </div>
+
+                      {/* City */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          City
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.city}
+                          onChange={(e) =>
+                            handleInputChange("city", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter city"
+                        />
+                      </div>
+
+                      {/* Province */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Province
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.province}
+                          onChange={(e) =>
+                            handleInputChange("province", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter province"
+                        />
+                      </div>
+
+                      {/* Postal Code */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Postal Code
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.postalCode}
+                          onChange={(e) =>
+                            handleInputChange("postalCode", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter postal code"
+                        />
+                      </div>
+
+                      {/* Office Number */}
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Office Number
+                        </label>
+                        <input
+                          type="tel"
+                          value={formData.officeNumber}
+                          onChange={(e) =>
+                            handleInputChange("officeNumber", e.target.value)
+                          }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                          placeholder="Enter office number"
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Submit Button */}
-                  <div className="pt-6">
+                  {/* Upload Portal Section */}
+                  <div className="p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-black mb-6">
+                      Recording Upload Section
+                    </h3>
+
+                    {/* Instructions */}
+                    <div className="mb-6 p-4 bg-white border border-gray-200 rounded-md">
+                      <h4 className="font-semibold text-black mb-2">
+                        Upload Instructions
+                      </h4>
+                      <ul className="text-sm text-gray-700 space-y-1">
+                        <li>
+                          In order to send us files you must first
+                          compress/zip the files and then send the
+                          zip/compressed file to us.
+                        </li>
+                        <li>
+                          Annotations can also be uploaded through the
+                          ShareFile portal.
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* File Upload Portal */}
+                    <h4 className="text-lg font-medium text-gray-800 mb-4">
+                      Your online transcript order portal.
+                    </h4>
+                    <div className="relative">
+                      <iframe
+                        src="https://videoplustranscriptionserviceskimfess.sharefile.com/remoteupload/eb067b13-7e35-46f9-b61f-da155da1e7e2"
+                        width="100%"
+                        height="500"
+                        frameBorder="0"
+                        className="w-full border border-gray-200 rounded"
+                        title="Secure File Upload Portal"
+                        scrolling="auto"
+                        id="sfRemoteUploadFrame"
+                      />
+                      <noscript>
+                        <div className="p-4 text-center">
+                          <p className="text-gray-700 mb-2">
+                            Your browser does not support iframes. Please
+                            visit the link directly:
+                          </p>
+                          <a
+                            href="https://videoplustranscriptionserviceskimfess.sharefile.com/remoteupload/eb067b13-7e35-46f9-b61f-da155da1e7e2"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 underline"
+                          >
+                            Open File Upload Portal
+                          </a>
+                        </div>
+                      </noscript>
+                    </div>
+                  </div>
+
+                  {/* Submit Section */}
+                  <div className="p-6 text-center">
                     <button
                       type="submit"
-                      className="w-full bg-primary hover:bg-secondary text-white font-bold py-4 px-8 rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
+                      disabled={isSubmitting}
+                      className={`font-semibold py-4 px-12 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105 ${
+                        isSubmitting
+                          ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                          : "bg-primary text-white hover:bg-secondary"
+                      }`}
                     >
-                      SUBMIT
+                      {isSubmitting ? "Submitting..." : "Submit Court Order"}
                     </button>
                   </div>
                 </form>
