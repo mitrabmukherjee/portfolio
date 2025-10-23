@@ -102,9 +102,21 @@ export default function OrderTranscriptPage() {
     setIsSubmitting(true);
 
     try {
-      // Add your form submission logic here
-      console.log("Form submitted:", formData);
-      alert("Form submitted successfully!");
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Form submitted successfully:", result);
+      alert("Form submitted successfully! We'll be in touch soon.");
       setFormData({ ...initialFormData });
     } catch (error) {
       console.error("Error submitting form:", error);
