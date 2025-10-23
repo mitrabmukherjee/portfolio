@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client";
 import {
   Phone,
   Mail,
@@ -6,12 +6,12 @@ import {
   Facebook,
   Youtube,
   Instagram,
+  Loader2,
 } from "lucide-react";
-import { MessageCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 import ReachOutSection from "@/app/components/ReachOutSection";
-import { getPublicJson } from "@/lib/publicJson";
+import { toast } from "sonner";
 
-// Custom WhatsApp Icon Component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
@@ -23,8 +23,81 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default async function ContactPage() {
-  const content = await getPublicJson("/content/contact-page.json");
+export default function ContactPage() {
+  const [content, setContent] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    requirement: "",
+    comments: "",
+  });
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      setLoading(true);
+      const response = await fetch("/content/contact-page.json");
+      const data = await response.json();
+      setContent(data);
+      setLoading(false);
+    };
+    fetchContent();
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      if (result.success) {
+        toast.success("Your message has been sent successfully!");
+        setFormData({
+          fullName: "",
+          phone: "",
+          email: "",
+          requirement: "",
+          comments: "",
+        });
+      }
+    } catch {
+      toast.error(
+        "There was an error sending your message. Please try again later."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!content || loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-12 h-12 text-secondary animate-spin" />
+          <p className="text-lg text-gray-600 font-alice">Loading content...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Page Header */}
@@ -59,7 +132,7 @@ export default async function ContactPage() {
             {/* Left Column - Contact Information */}
             <div className="p-8 bg-tertiary">
               <div className="space-y-8">
-                {content.contactInfo.map((item, index) => {
+                {content.contactInfo.map((item: any, index: any) => {
                   const IconComponent =
                     item.icon === "Phone"
                       ? Phone
@@ -91,29 +164,31 @@ export default async function ContactPage() {
                         )}
                         {item.socialLinks && (
                           <div className="flex gap-3">
-                            {item.socialLinks.map((social, socialIndex) => {
-                              const SocialIcon =
-                                social.icon === "Facebook"
-                                  ? Facebook
-                                  : social.icon === "Youtube"
-                                  ? Youtube
-                                  : social.icon === "Instagram"
-                                  ? Instagram
-                                  : social.icon === "MessageCircle"
-                                  ? WhatsAppIcon
-                                  : Facebook;
+                            {item.socialLinks.map(
+                              (social: any, socialIndex: any) => {
+                                const SocialIcon =
+                                  social.icon === "Facebook"
+                                    ? Facebook
+                                    : social.icon === "Youtube"
+                                    ? Youtube
+                                    : social.icon === "Instagram"
+                                    ? Instagram
+                                    : social.icon === "MessageCircle"
+                                    ? WhatsAppIcon
+                                    : Facebook;
 
-                              return (
-                                <a
-                                  key={socialIndex}
-                                  href={social.href}
-                                  className="w-10 h-10 bg-transparent border-1 border-black hover:bg-gray-100 flex items-center justify-center text-black transition-colors duration-300"
-                                  aria-label={social.ariaLabel}
-                                >
-                                  <SocialIcon className="w-5 h-5" />
-                                </a>
-                              );
-                            })}
+                                return (
+                                  <a
+                                    key={socialIndex}
+                                    href={social.href}
+                                    className="w-10 h-10 bg-transparent border-1 border-black hover:bg-gray-100 flex items-center justify-center text-black transition-colors duration-300"
+                                    aria-label={social.ariaLabel}
+                                  >
+                                    <SocialIcon className="w-5 h-5" />
+                                  </a>
+                                );
+                              }
+                            )}
                           </div>
                         )}
                       </div>
@@ -126,10 +201,13 @@ export default async function ContactPage() {
             {/* Right Column - Contact Form */}
             <div className="bg-tertiary p-8">
               <div className="p-6 bg-white">
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
                     <input
                       type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black placeholder:text-black"
                       placeholder="Full Name*"
@@ -139,6 +217,9 @@ export default async function ContactPage() {
                   <div>
                     <input
                       type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black placeholder:text-black"
                       placeholder="Phone Number*"
@@ -148,6 +229,9 @@ export default async function ContactPage() {
                   <div>
                     <input
                       type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black placeholder:text-black"
                       placeholder="Email*"
@@ -155,7 +239,12 @@ export default async function ContactPage() {
                   </div>
 
                   <div>
-                    <select className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black">
+                    <select
+                      name="requirement"
+                      value={formData.requirement}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black"
+                    >
                       <option value="">Please Select Requirement</option>
                       <option value="transcript">Court Transcript</option>
                       <option value="captioning">Live Captioning</option>
@@ -166,6 +255,9 @@ export default async function ContactPage() {
 
                   <div>
                     <textarea
+                      name="comments"
+                      value={formData.comments}
+                      onChange={handleChange}
                       rows={4}
                       className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black placeholder:text-black"
                       placeholder="Additional Comments"

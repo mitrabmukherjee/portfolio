@@ -5,6 +5,7 @@ import Navbar from "@/app/components/Navbar";
 import Topbar from "@/app/components/Topbar";
 import Footer from "@/app/components/Footer";
 import FloatingWhatsApp from "@/app/components/FloatingWhatsApp";
+import { Toaster } from "@/components/ui/sonner"
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -41,6 +42,7 @@ export default function RootLayout({
         <Topbar />
         <Navbar />
         {children}
+        <Toaster position="top-right" richColors />
         <Footer />
         <FloatingWhatsApp />
       </body>

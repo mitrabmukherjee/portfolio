@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 const sendMail1 = (
   htmlContent: any,
   receiverEmail: string,
-  subject: any = "Mail From VideoPlus"
+  subject: any = "Mail From Sue Loney"
 ) => {
   const port = process.env.SMTP_PORT;
   const host = process.env.SMTP_HOST;
@@ -22,7 +22,7 @@ const sendMail1 = (
   });
 
   let mailOptions = {
-    from: `"VideoPlus Admin" <${senderEmail}>`,
+    from: `"Sue Loney" <${senderEmail}>`,
     to: receiverEmail,
     subject: subject,
     text: htmlContent,
@@ -40,8 +40,8 @@ const sendMail1 = (
 const sendMail2 = (
   htmlContent: any,
   receiverEmail: string,
-  subject: any = "Mail From VideoPlus",
-  senderName: string = "VideoPlus Admin"
+  subject: any = "Mail From Sue Loney",
+  senderName: string = "Sue Loney"
 ) => {
   const port = process.env.SMTP_PORT;
   const host = process.env.SMTP_HOST;
