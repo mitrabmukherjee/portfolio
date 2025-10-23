@@ -21,13 +21,9 @@ export default function AboutSection() {
           <h3 className="text-xl font-semibold mb-3">
             Nova Scotia Court Transcriptionist
           </h3>
-          {/* <p className="leading-relaxed mb-4">
-            Before graduating from George Brown College as a court
-            reporter/stenographer in 1998, Alex took the opportunity to sit in
-            on various court proceedings at the Superior Court of Justice and
-            gained employment as a scopist proofreading and editing transcripts
-            for a court reporter who saw her potential.
-          </p> */}
+            <p className="leading-relaxed mb-4">
+            With 13 years of experience as a court reporter in a private reporting service, I managed both in-office and remote proceedings, including coroner's inquests, mediations, and jail examinations, transcribing them upon request. After joining Videoplus, I successfully completed the Nova Scotia Court Transcriber Certification Program and have since specialized exclusively in transcribing court proceedings.
+            </p>
           <a
             href="#contact"
             className="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-secondary transition-colors"

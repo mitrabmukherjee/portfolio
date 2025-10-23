@@ -21,13 +21,13 @@ export default function ReachOutSection() {
                 GIVE US A CALL
               </div>
               <div className="text-white text-lg font-bold">
-                +1-855-443-2748
+                +1-6475196321
               </div>
             </div>
           </a>
           <a
             className="p-6 bg-gradient-to-r from-[#3e1d6b] to-transparent hover:from-[#4a2a7a] hover:to-white/10 transition-all duration-300 shadow-lg"
-            href="mailto:awalker@actontario.ca"
+            href="mailto:s.loney175@gmail.com"
           >
             <div className="flex flex-col">
               <Mail className="w-8 h-8 text-white mb-4" />
@@ -35,7 +35,7 @@ export default function ReachOutSection() {
                 SEND AN EMAIL
               </div>
               <div className="text-white text-lg font-bold">
-                awalker@actontario.ca
+                s.loney175@gmail.com
               </div>
             </div>
           </a>

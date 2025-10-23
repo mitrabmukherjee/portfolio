@@ -48,20 +48,9 @@ export default function AboutPage() {
 
             {/* Biography Content */}
             <div className="prose prose-lg max-w-4xl text-black leading-relaxed">
-              {/* <p className="mb-6">
-                Before graduating from George Brown College as a court
-                reporter/stenographer in 1998, Alex took the opportunity to sit
-                in on various court proceedings at the Superior Court of Justice
-                and gained employment as a scopist proofreading and editing
-                transcripts for a court reporter who saw her potential. Since
-                then, she has worked in both official and freelance environments
-                as a court reporter, captioner, and notetaker. For the past 10
-                years, her focus has primarily been on scoping transcripts for
-                other court reporters here in Canada and in the United States.
-                Alex became an Nova Scotia Court Transcriptionist (ACT) in 2016.
-                She recently joined the Videoplus team and looks forward to
-                assisting you.
-              </p> */}
+              <p className="mb-6">
+                I was a court reporter in a private reporting service for 13 years, both in-office and remote locations for different proceedings such as coroner's inquests, mediations, jail examinations, and transcribed all the proceedings when transcripts were ordered.  Upon joining Videoplus, I successfully completed the Nova Scotia Court Transcriber Certification Program and have been transcribing court proceedings exclusively since then.
+              </p>
             </div>
 
             {/* Order Button */}
