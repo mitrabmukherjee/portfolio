@@ -18,21 +18,17 @@ export default function ServicesSection() {
   return (
     <section id="services" className="py-16 bg-white">
       <div className="mx-auto max-w-6xl w-full px-4">
-        <h2 className="text-2xl md:text-4xl font-semibold mb-8 text-center text-secondary">
-          Transcription Services Provided by Sue Loney
+        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-secondary">
+          Transcription Services Provided
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-800">
-          {services.map((s, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-800">
+          {services.map((s) => (
             <div
               key={s}
-              className={`p-2 bg-primary rounded-lg border hover:bg-secondary text-white flex items-center justify-center gap-3 ${
-                index === services.length - 1 && services.length % 2 === 1
-                  ? "sm:col-start-1 sm:col-end-3 sm:justify-self-center sm:max-w-xl w-xl"
-                  : ""
-              }`}
+              className="p-6 bg-tertiary rounded-xl shadow-md flex items-center gap-4"
             >
-              <Check className="w-7 h-7" />
-              <span>{s}</span>
+              <CheckCircle className="w-8 h-8 text-secondary flex-shrink-0" />
+              <span className="text-lg font-medium text-primary">{s}</span>
             </div>
           ))}
         </div>

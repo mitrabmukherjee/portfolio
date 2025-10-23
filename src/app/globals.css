@@ -3,12 +3,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1e293b; /* slate-800 */
   /* Brand colors */
-  --primary: #8b5cf6; /* purple */
-  --secondary: #0fb7a7; /* teal */
-  --tertiary: #e2e8f0; /* light purple */
-  --quaternary: #64748b; /* gray */
+  --primary: #5b21b6; /* violet-800 */
+  --secondary: #14b8a6; /* teal-500 */
+  --tertiary: #ede9fe; /* violet-100 */
+  --quaternary: #64748b; /* slate-500 */
   --white: #ffffff;
   --black: #000000;
 }
