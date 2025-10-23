@@ -154,7 +154,7 @@ export default function OrderTranscriptPage() {
             <div className="lg:col-span-1">
               <div className="text-center lg:text-left">
                 <Image
-                  src="/images/Rella-Alex-Walker-00340-1.jpg"
+                  src="/images/portrait.png"
                   alt="Rella (Alex) Walker"
                   width={300}
                   height={300}
@@ -844,11 +844,10 @@ export default function OrderTranscriptPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`font-semibold py-4 px-12 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105 ${
-                        isSubmitting
+                      className={`font-semibold py-4 px-12 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105 ${isSubmitting
                           ? "bg-gray-400 text-gray-700 cursor-not-allowed"
                           : "bg-primary text-white hover:bg-secondary"
-                      }`}
+                        }`}
                     >
                       {isSubmitting ? "Submitting..." : "Submit Court Order"}
                     </button>

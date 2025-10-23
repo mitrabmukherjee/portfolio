@@ -30,7 +30,7 @@ export default function AboutPage() {
             <div className="flex-shrink-0">
               <div className="relative">
                 <Image
-                  src="/images/Rella-Alex-Walker-00340-1.jpg"
+                  src="/images/portrait.png"
                   alt="Sue Loney"
                   width={300}
                   height={300}
@@ -42,11 +42,8 @@ export default function AboutPage() {
             {/* Title and ID */}
             <div className="mb-8">
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-                AUTHORIZED COURT TRANSCRIPTIONIST
+                Nova Scotia Court Transcriptionist
               </h2>
-              <p className="text-xl font-semibold text-black">
-                ACT ID: 2661015794
-              </p>
             </div>
 
             {/* Biography Content */}
@@ -61,7 +58,7 @@ export default function AboutPage() {
                 as a court reporter, captioner, and notetaker. For the past 10
                 years, her focus has primarily been on scoping transcripts for
                 other court reporters here in Canada and in the United States.
-                Alex became an Authorized Court Transcriptionist (ACT) in 2016.
+                Alex became an Nova Scotia Court Transcriptionist (ACT) in 2016.
                 She recently joined the Videoplus team and looks forward to
                 assisting you.
               </p> */}
