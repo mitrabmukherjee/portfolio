@@ -4,7 +4,7 @@ export default function AboutSection() {
   return (
     <section id="about" className="py-8 bg-white text-black">
       <div className="mx-auto max-w-7xl w-full px-4 py-8 flex flex-col md:flex-row gap-8 items-center">
-        <div className="flex-1 flex justify-end">
+        <div className="flex-1 flex justify-center md:justify-end ">
           <img
             src="/images/portrait.png"
             alt="Sue Loney"
@@ -21,9 +21,15 @@ export default function AboutSection() {
           <h3 className="text-xl font-semibold mb-3">
             Nova Scotia Court Transcriptionist
           </h3>
-            <p className="leading-relaxed mb-4">
-            With 13 years of experience as a court reporter in a private reporting service, I managed both in-office and remote proceedings, including coroner's inquests, mediations, and jail examinations, transcribing them upon request. After joining Videoplus, I successfully completed the Nova Scotia Court Transcriber Certification Program and have since specialized exclusively in transcribing court proceedings.
-            </p>
+          <p className="leading-relaxed mb-4">
+            With 13 years of experience as a court reporter in a private
+            reporting service, Sue Loney managed both in-office and remote
+            proceedings, including coroner's inquests, mediations, and jail
+            examinations, transcribing them upon request. After joining
+            Videoplus, she successfully completed the Nova Scotia Court
+            Transcriber Certification Program and has since specialized
+            exclusively in transcribing court proceedings.
+          </p>
           <a
             href="#contact"
             className="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-secondary transition-colors"

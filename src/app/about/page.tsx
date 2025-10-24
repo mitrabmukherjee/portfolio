@@ -49,7 +49,14 @@ export default function AboutPage() {
             {/* Biography Content */}
             <div className="prose prose-lg max-w-4xl text-black leading-relaxed">
               <p className="mb-6">
-                I was a court reporter in a private reporting service for 13 years, both in-office and remote locations for different proceedings such as coroner's inquests, mediations, jail examinations, and transcribed all the proceedings when transcripts were ordered.  Upon joining Videoplus, I successfully completed the Nova Scotia Court Transcriber Certification Program and have been transcribing court proceedings exclusively since then.
+                Sue Loney served as a court reporter in a private reporting
+                service for 13 years, working both in-office and at remote
+                locations for different proceedings such as coroner's inquests,
+                mediations, and jail examinations. In this role, she transcribed
+                all proceedings when transcripts were ordered. Upon joining
+                Videoplus, she successfully completed the Nova Scotia Court
+                Transcriber Certification Program and has been transcribing
+                court proceedings exclusively since then.
               </p>
             </div>
 

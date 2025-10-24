@@ -3,7 +3,7 @@ import { FileText } from "lucide-react";
 export default function ContactSection() {
   return (
     <section id="get-in-touch" className="bg-secondary">
-      <div className="mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-white">
+      <div className="mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 items-center text-white">
         <div>
           <img
             src="/images/getaquote.jpg"
@@ -11,7 +11,7 @@ export default function ContactSection() {
             className="w-full h-64 object-cover object-top shadow"
           />
         </div>
-        <div className="text-center md:text-left">
+        <div className="text-center md:text-left flex flex-col items-center md:items-start pb-4 md:pb-0">
           <h2 className="text-3xl font-normal mb-8 max-w-lg">
             Get in touch with{" "}
             <span className="text-4xl text-white font-bold">

@@ -155,13 +155,13 @@ export default function OrderTranscriptPage() {
               <div className="text-center lg:text-left">
                 <Image
                   src="/images/portrait.png"
-                  alt="Rella (Alex) Walker"
+                  alt="Sue Loney Image"
                   width={300}
                   height={300}
                   className="mx-auto lg:mx-0 rounded-lg shadow-lg mb-6"
                 />
-                <div className="bg-primary text-white p-6 rounded-lg">
-                  <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="bg-primary text-white md:p-6 p-4 rounded-lg">
+                  <div className="flex items-center justify-center gap-3 md:mb-4 mb-0">
                     <svg
                       className="w-6 h-6"
                       fill="none"

@@ -102,16 +102,16 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex items-end h-full pb-32">
+      <div className="relative z-10 flex items-end h-full pb-8 md:pb-16 lg:pb-32">
         <div className="w-full mx-auto px-4 w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col lg:flex-row items-end justify-around gap-8"
+            className="flex flex-col lg:flex-row items-start lg:items-end lg:justify-around gap-8"
           >
             {/* Left side - Text content */}
-            <div className="flex-1 max-w-2xl uppercase">
+            <div className="w-full lg:flex-1 lg:max-w-2xl uppercase text-left lg:text-left self-start lg:self-end">
               {activeIndex === 0 && (
                 <motion.h1
                   initial={{ opacity: 0, y: 20 }}
@@ -156,7 +156,7 @@ export default function HeroSection() {
             </div>
 
             {/* Right side - Button */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 flex justify-center lg:justify-end self-center lg:self-end">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
