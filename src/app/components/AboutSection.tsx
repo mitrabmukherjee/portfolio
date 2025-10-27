@@ -6,7 +6,7 @@ export default function AboutSection() {
       <div className="mx-auto max-w-7xl w-full px-4 py-8 flex flex-col md:flex-row gap-8 items-center">
         <div className="flex-1 flex justify-center md:justify-end ">
           <img
-            src="/images/portrait.png"
+            src="/images/sue-loney.png"
             alt="Sue Loney"
             className="w-3/4 h-auto rounded-lg shadow-lg"
           />

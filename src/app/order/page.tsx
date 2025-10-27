@@ -154,7 +154,7 @@ export default function OrderTranscriptPage() {
             <div className="lg:col-span-1">
               <div className="text-center lg:text-left">
                 <Image
-                  src="/images/portrait.png"
+                  src="/images/sue-loney.png"
                   alt="Sue Loney Image"
                   width={300}
                   height={300}
@@ -175,7 +175,7 @@ export default function OrderTranscriptPage() {
                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                       />
                     </svg>
-                    <span className="text-xl font-bold">+1-6475196321</span>
+                    <span className="text-xl font-bold">+1-647-933-5464</span>
                   </div>
                 </div>
               </div>
@@ -261,10 +261,7 @@ export default function OrderTranscriptPage() {
                           type="text"
                           value={formData.courtFileNumber}
                           onChange={(e) =>
-                            handleInputChange(
-                              "courtFileNumber",
-                              e.target.value
-                            )
+                            handleInputChange("courtFileNumber", e.target.value)
                           }
                           className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
                           placeholder="Enter court file number"
@@ -326,8 +323,7 @@ export default function OrderTranscriptPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div>
                                 <label className="block text-sm font-medium text-black mb-2">
-                                  Date of Proceeding:{" "}
-                                  {index === 0 ? "*" : ""}
+                                  Date of Proceeding: {index === 0 ? "*" : ""}
                                 </label>
                                 <input
                                   type="date"
@@ -844,10 +840,11 @@ export default function OrderTranscriptPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`font-semibold py-4 px-12 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105 ${isSubmitting
-                        ? "bg-gray-400 text-gray-700 cursor-not-allowed"
-                        : "bg-primary text-white hover:bg-secondary"
-                        }`}
+                      className={`font-semibold py-4 px-12 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105 ${
+                        isSubmitting
+                          ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                          : "bg-primary text-white hover:bg-secondary"
+                      }`}
                     >
                       {isSubmitting ? "Submitting..." : "Submit Court Order"}
                     </button>

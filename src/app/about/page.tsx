@@ -30,7 +30,7 @@ export default function AboutPage() {
             <div className="flex-shrink-0">
               <div className="relative">
                 <Image
-                  src="/images/portrait.png"
+                  src="/images/sue-loney.png"
                   alt="Sue Loney"
                   width={300}
                   height={300}
