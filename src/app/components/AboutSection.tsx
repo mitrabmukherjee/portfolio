@@ -6,7 +6,7 @@ export default function AboutSection() {
       <div className="mx-auto max-w-7xl w-full px-4 py-8 flex flex-col md:flex-row gap-8 items-center">
         <div className="flex-1 flex justify-center md:justify-end ">
           <img
-            src="/images/sue-loney.png"
+            src="/images/Sue-Loney-Potrait.png"
             alt="Sue Loney"
             className="w-3/4 h-auto rounded-lg shadow-lg"
           />
@@ -23,12 +23,14 @@ export default function AboutSection() {
           </h3>
           <p className="leading-relaxed mb-4">
             With 13 years of experience as a court reporter in a private
-            reporting service, Sue Loney managed both in-office and remote
-            proceedings, including coroner's inquests, mediations, and jail
-            examinations, transcribing them upon request. After joining
-            Videoplus, she successfully completed the Nova Scotia Court
-            Transcriber Certification Program and has since specialized
-            exclusively in transcribing court proceedings.
+            reporting service, Sue Loney worked both in-office and at remote
+            locations, covering a wide range of proceedings including civil
+            matters, coroner’s inquests, mediations, and in-custody
+            examinations. In this capacity, she prepared transcripts upon
+            request for each proceeding. After joining Videoplus in 2022, she
+            successfully completed the Nova Scotia Court Transcriber
+            Certification Program and has since focused exclusively on
+            transcribing court proceedings.
           </p>
           <a
             href="#contact"

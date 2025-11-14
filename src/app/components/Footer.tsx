@@ -1,25 +1,15 @@
-import { Facebook, Youtube, Instagram, MessageCircle } from "lucide-react";
+import { Facebook, Youtube, Instagram, MessageCircle, Linkedin } from "lucide-react";
 
 const socialLinks = [
   {
     icon: Facebook,
-    href: "#",
+    href: "https://www.facebook.com/sue.loney.39",
     label: "Facebook",
   },
   {
-    icon: Youtube,
-    href: "#",
-    label: "YouTube",
-  },
-  {
-    icon: Instagram,
-    href: "#",
-    label: "Instagram",
-  },
-  {
-    icon: MessageCircle,
-    href: "#",
-    label: "WhatsApp",
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/susan-loney-4b71a2269/",
+    label: "Linkedin",
   },
 ];
 

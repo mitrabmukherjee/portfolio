@@ -10,6 +10,7 @@ export default function HeroSection() {
     "/images/slide1.jpg",
     "/images/slide2.jpg",
     "/images/slide3.jpg",
+    "/images/slide4.jpg",
   ];
 
   return (
@@ -119,10 +120,7 @@ export default function HeroSection() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="text-2xl md:text-4xl text-white drop-shadow-lg"
                 >
-                  Accurate
-                  <br />
-                  Transcription
-                  <br />& Trusted Results
+                  The Nova <br /> Scotia Standard
                 </motion.h1>
               )}
 
@@ -133,11 +131,7 @@ export default function HeroSection() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="text-2xl md:text-4xl text-white drop-shadow-lg"
                 >
-                  Your
-                  <br />
-                  Deadline
-                  <br />
-                  Our Commitment
+                  Advocating <br /> for Accuracy
                 </motion.h1>
               )}
 
@@ -148,9 +142,18 @@ export default function HeroSection() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="text-2xl md:text-4xl text-white drop-shadow-lg"
                 >
-                  Specializes in
-                  <br />
-                  criminal and civil transcripts.
+                  Precision for <br /> Your Case
+                </motion.h1>
+              )}
+
+              {activeIndex === 3 && (
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-2xl md:text-4xl text-white drop-shadow-lg"
+                >
+                  On Time. <br /> On Record.
                 </motion.h1>
               )}
             </div>

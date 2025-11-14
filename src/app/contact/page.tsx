@@ -7,6 +7,7 @@ import {
   Youtube,
   Instagram,
   Loader2,
+  Linkedin,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import ReachOutSection from "@/app/components/ReachOutSection";
@@ -169,12 +170,8 @@ export default function ContactPage() {
                                 const SocialIcon =
                                   social.icon === "Facebook"
                                     ? Facebook
-                                    : social.icon === "Youtube"
-                                    ? Youtube
-                                    : social.icon === "Instagram"
-                                    ? Instagram
-                                    : social.icon === "MessageCircle"
-                                    ? WhatsAppIcon
+                                    : social.icon === "Linkedin"
+                                    ? Linkedin
                                     : Facebook;
 
                                 return (

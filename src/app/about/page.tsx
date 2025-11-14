@@ -28,13 +28,13 @@ export default function AboutPage() {
           <div className="flex flex-col items-center text-center space-y-8">
             {/* Profile Image */}
             <div className="flex-shrink-0">
-              <div className="relative">
+              <div className="relative w-[300px] h-[300px]">
                 <Image
-                  src="/images/sue-loney.png"
+                  src="/images/Sue-Loney-Potrait.png"
                   alt="Sue Loney"
                   width={300}
                   height={300}
-                  className="rounded-full border-4 border-primary object-cover"
+                  className="rounded-full border-4 border-primary object-cover w-full h-full"
                 />
               </div>
             </div>
@@ -51,12 +51,15 @@ export default function AboutPage() {
               <p className="mb-6">
                 Sue Loney served as a court reporter in a private reporting
                 service for 13 years, working both in-office and at remote
-                locations for different proceedings such as coroner's inquests,
-                mediations, and jail examinations. In this role, she transcribed
-                all proceedings when transcripts were ordered. Upon joining
-                Videoplus, she successfully completed the Nova Scotia Court
-                Transcriber Certification Program and has been transcribing
-                court proceedings exclusively since then.
+                locations for various proceedings such as coroner's inquests,
+                mediations, and in-custody examinations. In this role, she
+                transcribed all proceedings when transcripts were ordered. Upon
+                joining Videoplus, she successfully completed the Nova Scotia
+                Court Transcriber Certification Program and has been
+                transcribing court proceedings exclusively since then. Outside
+                of her professional work, Sue enjoys spending time outdoors,
+                often with her horse, Sadie, and finds balance through her love
+                of riding and all things equine.
               </p>
             </div>
 

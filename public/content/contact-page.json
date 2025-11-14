@@ -14,7 +14,7 @@
     {
       "icon": "Mail",
       "title": "Email Us",
-      "content": "s.loney175@gmail.com"
+      "content": "suens@vptranscription.com"
     },
     {
       "icon": "Share2",
@@ -22,23 +22,13 @@
       "socialLinks": [
         {
           "icon": "Facebook",
-          "href": "#",
+          "href": "https://www.facebook.com/sue.loney.39",
           "ariaLabel": "Facebook"
         },
         {
-          "icon": "Youtube",
-          "href": "#",
-          "ariaLabel": "YouTube"
-        },
-        {
-          "icon": "Instagram",
-          "href": "#",
-          "ariaLabel": "Instagram"
-        },
-        {
-          "icon": "MessageCircle",
-          "href": "#",
-          "ariaLabel": "WhatsApp"
+          "icon": "Linkedin",
+          "href": "https://www.linkedin.com/in/susan-loney-4b71a2269/",
+          "ariaLabel": "Linkedin"
         }
       ]
     }

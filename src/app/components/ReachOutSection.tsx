@@ -37,8 +37,8 @@ export default function ReachOutSection() {
     {
       icon: Mail,
       title: "SEND AN EMAIL",
-      content: "s.loney175@gmail.com",
-      href: "mailto:s.loney175@gmail.com",
+      content: "suens@vptranscription.com",
+      href: "mailto:suens@vptranscription.com",
     },
     {
       icon: Clock,

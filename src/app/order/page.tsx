@@ -154,7 +154,7 @@ export default function OrderTranscriptPage() {
             <div className="lg:col-span-1">
               <div className="text-center lg:text-left">
                 <Image
-                  src="/images/sue-loney.png"
+                  src="/images/Sue-Loney-Potrait.png"
                   alt="Sue Loney Image"
                   width={300}
                   height={300}

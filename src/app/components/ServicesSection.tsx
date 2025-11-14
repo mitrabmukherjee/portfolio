@@ -12,7 +12,6 @@ export default function ServicesSection() {
     "DISCOVERY PROCEEDINGS",
     "REASONS FOR SENTENCE",
     "REASONS FOR JUDGMENT",
-    "Ontario and Superior Court Transcription",
   ];
 
   return (
