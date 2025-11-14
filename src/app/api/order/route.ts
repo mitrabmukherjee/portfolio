@@ -26,6 +26,8 @@ export async function POST(request: NextRequest) {
         additionalComments: orderData.additionalComments,
         usedForAppeal: orderData.usedForAppeal,
         appealNumber: orderData.appealNumber,
+        hasPublicationBan: orderData.hasPublicationBan,
+        publicationBanDetails: orderData.publicationBanDetails,
         orderingPartyName: orderData.orderingPartyName,
         companyName: orderData.companyName,
         designation: orderData.designation,
@@ -120,6 +122,14 @@ export async function POST(request: NextRequest) {
       ${
         orderData.appealNumber
           ? `<p><strong>Appeal Number:</strong> ${orderData.appealNumber}</p>`
+          : ""
+      }
+      <p><strong>Does this matter have a publication ban?</strong> ${
+        orderData.hasPublicationBan || "Not specified"
+      }</p>
+      ${
+        orderData.publicationBanDetails
+          ? `<p><strong>Publication Ban Details:</strong> ${orderData.publicationBanDetails}</p>`
           : ""
       }
       

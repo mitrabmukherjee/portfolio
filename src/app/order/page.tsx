@@ -30,6 +30,8 @@ export default function OrderTranscriptPage() {
     additionalComments: "",
     usedForAppeal: "",
     appealNumber: "",
+    hasPublicationBan: "",
+    publicationBanDetails: "",
 
     // Ordering Party Details
     orderingPartyName: "",
@@ -659,6 +661,70 @@ export default function OrderTranscriptPage() {
                             }
                             className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
                             placeholder="Enter appeal number"
+                          />
+                        </div>
+                      )}
+
+                      {/* Does this matter have a publication ban? */}
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-black mb-3">
+                          Does this matter have a publication ban? *
+                        </label>
+                        <div className="flex space-x-4">
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="hasPublicationBan"
+                              value="yes"
+                              checked={formData.hasPublicationBan === "yes"}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "hasPublicationBan",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">Yes</span>
+                          </label>
+                          <label className="flex items-center">
+                            <input
+                              type="radio"
+                              name="hasPublicationBan"
+                              value="no"
+                              checked={formData.hasPublicationBan === "no"}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "hasPublicationBan",
+                                  e.target.value
+                                )
+                              }
+                              className="text-primary focus:ring-primary"
+                              required
+                            />
+                            <span className="ml-2 text-black">No</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Publication Ban Details - Conditional Field */}
+                      {formData.hasPublicationBan === "yes" && (
+                        <div className="md:col-span-2">
+                          <label className="block text-sm font-medium text-black mb-2">
+                            If so please advise which one?
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.publicationBanDetails}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "publicationBanDetails",
+                                e.target.value
+                              )
+                            }
+                            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
+                            placeholder="Enter publication ban details"
                           />
                         </div>
                       )}

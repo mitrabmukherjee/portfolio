@@ -37,6 +37,8 @@ model Order {
   additionalComments     String?
   usedForAppeal          String?
   appealNumber           String?
+  hasPublicationBan      String?
+  publicationBanDetails String?
 
   // Ordering Party Details
   orderingPartyName String?

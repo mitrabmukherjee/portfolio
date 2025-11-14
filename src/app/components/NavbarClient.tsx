@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 type NavbarLink = {
   label: string;
@@ -22,11 +23,18 @@ export default function NavbarClient({ content }: NavbarClientProps) {
   return (
     <header id="site-navbar" className="sticky top-0 z-50 bg-white border-b">
       <div className="mx-auto w-full py-3 flex items-center justify-between max-w-7xl px-4">
-        <a
-          href="/"
-          className="text-4xl font-semibold tracking-tight glossy-text text-primary uppercase"
-        >
-          {content.brand}
+        <a href="/" className="flex items-center gap-3">
+          <Image
+            src="/images/Sue-Loney-Logo.svg"
+            alt={content.brand}
+            width={200}
+            height={60}
+            className="h-auto w-auto max-h-16"
+            priority
+          />
+          <span className="text-4xl font-semibold italic tracking-tight glossy-text text-primary uppercase pr-2">
+            {content.brand}
+          </span>
         </a>
 
         {/* Desktop Navigation */}

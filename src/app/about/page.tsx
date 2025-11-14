@@ -47,8 +47,8 @@ export default function AboutPage() {
             </div>
 
             {/* Biography Content */}
-            <div className="prose prose-lg max-w-4xl text-black leading-relaxed">
-              <p className="mb-6">
+            <div className="prose prose-lg max-w-4xl text-black leading-relaxed space-y-4">
+              <p className="">
                 Sue Loney served as a court reporter in a private reporting
                 service for 13 years, working both in-office and at remote
                 locations for various proceedings such as coroner's inquests,
@@ -56,10 +56,12 @@ export default function AboutPage() {
                 transcribed all proceedings when transcripts were ordered. Upon
                 joining Videoplus, she successfully completed the Nova Scotia
                 Court Transcriber Certification Program and has been
-                transcribing court proceedings exclusively since then. Outside
-                of her professional work, Sue enjoys spending time outdoors,
-                often with her horse, Sadie, and finds balance through her love
-                of riding and all things equine.
+                transcribing court proceedings exclusively since then.
+              </p>
+              <p className="">
+                Outside of her professional work, Sue enjoys spending time
+                outdoors, often with her horse, Sadie, and finds balance through
+                her love of riding and all things equine.
               </p>
             </div>
 
