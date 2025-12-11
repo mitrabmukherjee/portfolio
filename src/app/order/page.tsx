@@ -3,8 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import ReachOutSection from "@/app/components/ReachOutSection";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { toast } from "sonner";
 
 export default function OrderTranscriptPage() {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const initialFormData = {
     // Case Details
     styleOfCause: "",
@@ -101,28 +104,45 @@ export default function OrderTranscriptPage() {
   // Handler for form submission
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!executeRecaptcha) {
+      toast.error("reCAPTCHA not ready. Please try again.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
+      const recaptchaToken = await executeRecaptcha("order_form_submit");
+
       const response = await fetch("/api/order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          recaptchaToken,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
-      console.log("Form submitted successfully:", result);
-      alert("Form submitted successfully! We'll be in touch soon.");
-      setFormData({ ...initialFormData });
+      if (result.success) {
+        toast.success("Form submitted successfully! We'll be in touch soon.");
+        setFormData({ ...initialFormData });
+      } else {
+        toast.error(result.message || "Failed to submit form. Please try again.");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Error submitting form. Please try again.");
+      toast.error(
+        error instanceof Error ? error.message : "Error submitting form. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }

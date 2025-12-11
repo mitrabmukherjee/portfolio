@@ -5,7 +5,8 @@ import Navbar from "@/app/components/Navbar";
 import Topbar from "@/app/components/Topbar";
 import Footer from "@/app/components/Footer";
 import FloatingWhatsApp from "@/app/components/FloatingWhatsApp";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
+import ReCaptchaProvider from "@/app/components/ReCaptchaProvider";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -27,6 +28,11 @@ export const metadata: Metadata = {
   title: "Sue Loney - Court Transcription Services",
   description:
     "Professional court transcription services specializing in criminal and civil transcripts. Accurate, reliable, and trusted by legal professionals.",
+  icons: {
+    icon: "/images/Sue-Loney-Logo.svg",
+    shortcut: "/images/Sue-Loney-Logo.svg",
+    apple: "/images/Sue-Loney-Logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -39,12 +45,14 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} ${suse.variable} ${alice.variable} antialiased`}
       >
-        <Topbar />
-        <Navbar />
-        {children}
-        <Toaster position="top-right" richColors />
-        <Footer />
-        <FloatingWhatsApp />
+        <ReCaptchaProvider>
+          <Topbar />
+          <Navbar />
+          {children}
+          <Toaster position="top-right" richColors />
+          <Footer />
+          <FloatingWhatsApp />
+        </ReCaptchaProvider>
       </body>
     </html>
   );

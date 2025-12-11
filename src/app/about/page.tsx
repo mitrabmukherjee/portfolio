@@ -51,7 +51,7 @@ export default function AboutPage() {
               <p className="">
                 Sue Loney served as a court reporter in a private reporting
                 service for 13 years, working both in-office and at remote
-                locations for various proceedings such as coroner's inquests,
+                locations for various proceedings such as coroner&apos;s inquests,
                 mediations, and in-custody examinations. In this role, she
                 transcribed all proceedings when transcripts were ordered. Upon
                 joining Videoplus, she successfully completed the Nova Scotia

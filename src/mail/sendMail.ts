@@ -1,27 +1,31 @@
 import nodemailer from "nodemailer";
 
 const sendMail1 = (
-  htmlContent: any,
+  htmlContent: string,
   receiverEmail: string,
-  subject: any = "Mail From Sue Loney"
+  subject: string = "Mail From Sue Loney"
 ) => {
-  const port = process.env.SMTP_PORT;
-  const host = process.env.SMTP_HOST;
+  const port = parseInt(process.env.SMTP_PORT || "465", 10);
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
   const senderEmail = process.env.SMTP_EMAIL;
   const password = process.env.SMTP_PASSWORD;
 
-  let transporter = nodemailer.createTransport({
-    // @ts-ignore
-    host: "smtp.gmail.com",
+  if (!senderEmail || !password) {
+    console.error("SMTP credentials are missing. Please check your environment variables.");
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: host,
     port: port,
-    secure: true,
+    secure: port === 465, // true for 465, false for other ports
     auth: {
-      user: host,
+      user: senderEmail,
       pass: password,
     },
   });
 
-  let mailOptions = {
+  const mailOptions = {
     from: `"Sue Loney" <${senderEmail}>`,
     to: receiverEmail,
     subject: subject,
@@ -33,33 +37,37 @@ const sendMail1 = (
     if (error) {
       return console.log("Error while sending email:", error);
     }
-    // console.log('Email sent successfully:', info.response);
+    console.log('Email sent successfully:', info.response);
   });
 };
 
 const sendMail2 = (
-  htmlContent: any,
+  htmlContent: string,
   receiverEmail: string,
-  subject: any = "Mail From Sue Loney",
+  subject: string = "Mail From Sue Loney",
   senderName: string = "Sue Loney"
 ) => {
-  const port = process.env.SMTP_PORT;
-  const host = process.env.SMTP_HOST;
+  const port = parseInt(process.env.SMTP_PORT || "465", 10);
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
   const senderEmail = process.env.SMTP_EMAIL;
   const password = process.env.SMTP_PASSWORD;
 
-  let transporter = nodemailer.createTransport({
-    // @ts-ignore
-    host: "smtp.gmail.com",
+  if (!senderEmail || !password) {
+    console.error("SMTP credentials are missing. Please check your environment variables.");
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: host,
     port: port,
-    secure: true,
+    secure: port === 465, // true for 465, false for other ports
     auth: {
-      user: host,
+      user: senderEmail,
       pass: password,
     },
   });
 
-  let mailOptions = {
+  const mailOptions = {
     from: `"${senderName}" <${receiverEmail}>`,
     replyTo: receiverEmail,
     to: senderEmail,
