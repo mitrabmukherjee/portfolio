@@ -11,7 +11,9 @@ const sendMail1 = (
   const password = process.env.SMTP_PASSWORD;
 
   if (!senderEmail || !password) {
-    console.error("SMTP credentials are missing. Please check your environment variables.");
+    console.error(
+      "SMTP credentials are missing. Please check your environment variables."
+    );
     return;
   }
 
@@ -37,7 +39,7 @@ const sendMail1 = (
     if (error) {
       return console.log("Error while sending email:", error);
     }
-    console.log('Email sent successfully:', info.response);
+    console.log("Email sent successfully:", info.response);
   });
 };
 
@@ -53,7 +55,9 @@ const sendMail2 = (
   const password = process.env.SMTP_PASSWORD;
 
   if (!senderEmail || !password) {
-    console.error("SMTP credentials are missing. Please check your environment variables.");
+    console.error(
+      "SMTP credentials are missing. Please check your environment variables."
+    );
     return;
   }
 
