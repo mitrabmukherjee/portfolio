@@ -31,6 +31,8 @@ export default function Footer() {
               key={label}
               className="hover:text-secondary transition-colors p-2 border border-secondary rounded-full"
               href={href}
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label={label}
             >
               <Icon className="w-5 h-5" />

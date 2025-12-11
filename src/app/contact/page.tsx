@@ -1,12 +1,5 @@
 "use client";
-import {
-  Phone,
-  Mail,
-  Share2,
-  Facebook,
-  Loader2,
-  Linkedin,
-} from "lucide-react";
+import { Phone, Mail, Share2, Facebook, Loader2, Linkedin } from "lucide-react";
 import { useState, useEffect } from "react";
 import ReachOutSection from "@/app/components/ReachOutSection";
 import { toast } from "sonner";
@@ -100,7 +93,9 @@ export default function ContactPage() {
           comments: "",
         });
       } else {
-        toast.error(result.message || "Failed to send message. Please try again.");
+        toast.error(
+          result.message || "Failed to send message. Please try again."
+        );
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -189,27 +184,27 @@ export default function ContactPage() {
                         )}
                         {item.socialLinks && (
                           <div className="flex gap-3">
-                            {item.socialLinks.map(
-                              (social, socialIndex) => {
-                                const SocialIcon =
-                                  social.icon === "Facebook"
-                                    ? Facebook
-                                    : social.icon === "Linkedin"
-                                    ? Linkedin
-                                    : Facebook;
+                            {item.socialLinks.map((social, socialIndex) => {
+                              const SocialIcon =
+                                social.icon === "Facebook"
+                                  ? Facebook
+                                  : social.icon === "Linkedin"
+                                  ? Linkedin
+                                  : Facebook;
 
-                                return (
-                                  <a
-                                    key={socialIndex}
-                                    href={social.href}
-                                    className="w-10 h-10 bg-transparent border-1 border-black hover:bg-gray-100 flex items-center justify-center text-black transition-colors duration-300"
-                                    aria-label={social.ariaLabel}
-                                  >
-                                    <SocialIcon className="w-5 h-5" />
-                                  </a>
-                                );
-                              }
-                            )}
+                              return (
+                                <a
+                                  key={socialIndex}
+                                  href={social.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="w-10 h-10 bg-transparent border-1 border-black hover:bg-gray-100 flex items-center justify-center text-black transition-colors duration-300"
+                                  aria-label={social.ariaLabel}
+                                >
+                                  <SocialIcon className="w-5 h-5" />
+                                </a>
+                              );
+                            })}
                           </div>
                         )}
                       </div>
