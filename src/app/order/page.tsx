@@ -127,7 +127,9 @@ export default function OrderTranscriptPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+        throw new Error(
+          errorData.message || `HTTP error! status: ${response.status}`
+        );
       }
 
       const result = await response.json();
@@ -135,12 +137,16 @@ export default function OrderTranscriptPage() {
         toast.success("Form submitted successfully! We'll be in touch soon.");
         setFormData({ ...initialFormData });
       } else {
-        toast.error(result.message || "Failed to submit form. Please try again.");
+        toast.error(
+          result.message || "Failed to submit form. Please try again."
+        );
       }
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error(
-        error instanceof Error ? error.message : "Error submitting form. Please try again."
+        error instanceof Error
+          ? error.message
+          : "Error submitting form. Please try again."
       );
     } finally {
       setIsSubmitting(false);
@@ -904,6 +910,67 @@ export default function OrderTranscriptPage() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Upload Portal Section */}
+                  <div className="p-6">
+                    <div className="border border-black rounded-lg p-6">
+                      <h3 className="text-xl font-semibold text-black mb-6">
+                        Recording Upload Section
+                      </h3>
+
+                      {/* Instructions */}
+                      <div className="mb-6 p-4 bg-white border border-black rounded-md">
+                        <h4 className="font-semibold text-black mb-2">
+                          Upload Instructions for Nova Scotia Files
+                        </h4>
+                        <ul className="text-sm text-black space-y-1">
+                          <li>
+                            In order to send us Voxlog/NS files you must first
+                            compress/zip the files and then send the
+                            zip/compressed file to us.
+                          </li>
+                          <li>
+                            Annotations can also be uploaded through the
+                            ShareFile portal.
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* File Upload Portal */}
+                      <h4 className="text-lg font-medium text-black mb-4">
+                        Your online transcript order portal.
+                      </h4>
+                      <div className="relative">
+                        <iframe
+                          src="https://videoplustranscriptionserviceskimfess.sharefile.com/remoteupload/eb067b13-7e35-46f9-b61f-da155da1e7e2"
+                          width="100%"
+                          height="500"
+                          frameBorder="0"
+                          className="w-full border border-gray-200 rounded"
+                          title="Secure File Upload Portal"
+                          scrolling="auto"
+                          id="sfRemoteUploadFrame"
+                        />
+                        <noscript>
+                          <div className="p-4 text-center">
+                            <p className="text-gray-700 mb-2">
+                              Your browser does not support iframes. Please
+                              visit the link directly:
+                            </p>
+                            <a
+                              href="https://videoplustranscriptionserviceskimfess.sharefile.com/remoteupload/eb067b13-7e35-46f9-b61f-da155da1e7e2"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 underline"
+                            >
+                              Open File Upload Portal
+                            </a>
+                          </div>
+                        </noscript>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Submit Section */}
                   <div className="p-6 text-center">
                     <button
