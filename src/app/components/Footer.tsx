@@ -37,9 +37,15 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Second flex: Copyright Text */}
-        <div className="flex items-center">
+        {/* Second flex: Copyright Text and Privacy Policy Link */}
+        <div className="flex flex-col items-center gap-2">
           <div>© {new Date().getFullYear()} Sue Loney.</div>
+          <a
+            href="/privacy"
+            className="hover:text-secondary transition-colors underline text-xs"
+          >
+            Privacy Policy
+          </a>
         </div>
 
         {/* Third flex: VideoPlus Image */}
