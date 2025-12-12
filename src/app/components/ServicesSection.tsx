@@ -1,4 +1,4 @@
-import { Check, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 export default function ServicesSection() {
   const services = [

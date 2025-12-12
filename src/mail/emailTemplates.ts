@@ -17,7 +17,6 @@ interface OrderFormData {
   defenceCounselName?: string;
   courtFileNumber?: string;
   courtLocation?: string;
-  preferredACT?: string;
   copyType?: string;
   numberOfCopies?: string;
   emailCopy?: string;
@@ -355,13 +354,9 @@ export const getOrderNotificationEmail = (formData: OrderFormData) => {
       </div>
       ` : ''}
       
-      ${formData.preferredACT || formData.copyType || formData.dueDate ? `
+      ${formData.copyType || formData.dueDate ? `
       <div style="${sectionStyle}">
         <h3 style="${headingStyle}">📝 Order Details</h3>
-        <div style="${rowStyle}">
-          <span style="${labelStyle}">Preferred ACT:</span>
-          <span style="${valueStyle}">${formatValue(formData.preferredACT)}</span>
-        </div>
         <div style="${rowStyle}">
           <span style="${labelStyle}">Copy Type:</span>
           <span style="${valueStyle}">${formatValue(formData.copyType)}</span>

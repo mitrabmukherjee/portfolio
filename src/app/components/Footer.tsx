@@ -1,8 +1,5 @@
 import {
   Facebook,
-  Youtube,
-  Instagram,
-  MessageCircle,
   Linkedin,
 } from "lucide-react";
 import Image from "next/image";

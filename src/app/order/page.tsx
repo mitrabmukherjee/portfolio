@@ -23,7 +23,6 @@ export default function OrderTranscriptPage() {
     courtLocation: "",
 
     // Additional Details About the Order
-    preferredACT: "",
     copyType: "",
     numberOfCopies: 1,
     emailCopy: "",
@@ -392,22 +391,6 @@ export default function OrderTranscriptPage() {
                       Additional Details About the Order
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {/* Preferred ACT */}
-                      <div>
-                        <label className="block text-sm font-medium text-black mb-2">
-                          Preferred Certified Transcriptionist
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.preferredACT}
-                          onChange={(e) =>
-                            handleInputChange("preferredACT", e.target.value)
-                          }
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary transition-colors bg-white text-black"
-                          placeholder="Enter Preferred Certified Transcriptionist"
-                        />
-                      </div>
-
                       {/* Copy Type */}
                       <div>
                         <label className="block text-sm font-medium text-black mb-3">

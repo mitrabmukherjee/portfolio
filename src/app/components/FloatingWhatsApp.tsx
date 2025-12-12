@@ -1,5 +1,3 @@
-import { MessageCircle } from "lucide-react";
-
 // Custom WhatsApp Icon Component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg

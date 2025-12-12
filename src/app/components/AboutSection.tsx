@@ -1,5 +1,3 @@
-import { Award } from "lucide-react";
-
 export default function AboutSection() {
   return (
     <section id="about" className="py-8 bg-white text-black">
