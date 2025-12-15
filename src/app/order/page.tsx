@@ -179,7 +179,7 @@ export default function OrderTranscriptPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Left Column - Profile */}
             <div className="lg:col-span-1">
-              <div className="text-center lg:text-left">
+              <div className="text-center items-center flex flex-row justify-center">
                 <Image
                   src="/images/Sue-Loney-Potrait.png"
                   alt="Sue Loney Image"
