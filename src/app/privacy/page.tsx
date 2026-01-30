@@ -418,10 +418,10 @@ export default function PrivacyPage() {
                   <p>
                     <strong>Email:</strong>{" "}
                     <a
-                      href="mailto:suens@vptranscription.com"
+                      href="mailto:dcopping@actontario.ca"
                       className="text-primary hover:underline"
                     >
-                      suens@vptranscription.com
+                      dcopping@actontario.ca
                     </a>
                   </p>
                 </div>

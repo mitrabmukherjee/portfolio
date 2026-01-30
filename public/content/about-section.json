@@ -1,12 +1,12 @@
 {
   "title": "About",
-  "name": "Sue Loney",
-  "subtitle": "Nova Scotia Court Transcriptionist",
-  "description": "I have been a certified transcriber for the Province of Nova Scotia since September of 2023.",
-  "actId": "2661015794",
+  "name": "Deanna Copping",
+  "subtitle": "Ontario Authorized Court Transcriptionist",
+  "description": "I am an Authorized Court Transcriptionist with a focused practice in criminal proceedings, including Charter applications and appellate work.",
+  "actId": "",
   "image": {
-    "src": "/images/Sue-Loney-Potrait.png",
-    "alt": "Sue Loney"
+    "src": "/images/Deanna-Copping-Photo.png",
+    "alt": "Deanna Copping"
   },
   "button": {
     "text": "Get in touch",

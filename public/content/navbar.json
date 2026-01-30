@@ -1,8 +1,8 @@
 {
-  "brand": "Sue Loney",
+  "brand": "Deanna Copping",
   "links": [
     { "label": "Home", "href": "/" },
-    { "label": "About Sue Loney", "href": "/about" },
+    { "label": "About Deanna Copping", "href": "/about" },
     { "label": "Order A Transcript", "href": "/order" },
     { "label": "Contact", "href": "/contact" }
   ]

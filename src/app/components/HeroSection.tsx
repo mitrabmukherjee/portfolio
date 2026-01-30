@@ -97,7 +97,7 @@ export default function HeroSection() {
           className="absolute bottom-0 left-0 right-0 h-[75%]"
           style={{
             background:
-              "linear-gradient(to top, rgba(100, 55, 160) 0%, transparent 100%)",
+              "linear-gradient(to top, rgba(30, 58, 95, 0.95) 0%, transparent 100%)",
           }}
         />
       </div>
@@ -120,7 +120,7 @@ export default function HeroSection() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="text-2xl md:text-4xl text-white drop-shadow-lg"
                 >
-                  The Nova <br /> Scotia Standard
+                  The Ontario <br /> Standard
                 </motion.h1>
               )}
 

@@ -179,16 +179,16 @@ export default function OrderTranscriptPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Left Column - Profile */}
             <div className="lg:col-span-1">
-              <div className="text-center items-center flex flex-row justify-center">
+              <div className="flex flex-col items-center space-y-6">
                 <Image
-                  src="/images/Sue-Loney-Potrait.png"
-                  alt="Sue Loney Image"
+                  src="/images/Deanna-Copping-Photo.png"
+                  alt="Deanna Copping"
                   width={300}
                   height={300}
-                  className="mx-auto lg:mx-0 rounded-lg shadow-lg mb-6"
+                  className="rounded-lg shadow-lg"
                 />
-                <div className="bg-primary text-white md:p-6 p-4 rounded-lg">
-                  <div className="flex items-center justify-center gap-3 md:mb-4 mb-0">
+                <div className="w-full bg-primary text-white p-4 rounded-lg">
+                  <div className="flex items-center justify-center gap-3">
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -202,7 +202,7 @@ export default function OrderTranscriptPage() {
                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                       />
                     </svg>
-                    <span className="text-xl font-bold">+1-647-933-5464</span>
+                    <span className="text-xl font-bold">+1 (647) 933-5464</span>
                   </div>
                 </div>
               </div>
@@ -921,7 +921,7 @@ export default function OrderTranscriptPage() {
                       {/* Instructions */}
                       <div className="mb-6 p-4 bg-white border border-black rounded-md">
                         <h4 className="font-semibold text-black mb-2">
-                          Upload Instructions for Nova Scotia Files
+                          Upload Instructions for Ontario Files
                         </h4>
                         <ul className="text-sm text-black space-y-1">
                           <li>

@@ -26,7 +26,7 @@ export default function NavbarClient({ content }: NavbarClientProps) {
       <div className="mx-auto w-full py-3 flex items-center justify-between max-w-7xl px-4">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/images/Sue-Loney-Logo.svg"
+            src="/images/Copping-Transcription-Logo.png"
             alt={content.brand}
             width={200}
             height={60}
@@ -41,13 +41,13 @@ export default function NavbarClient({ content }: NavbarClientProps) {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4">
           {content.links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="px-3 py-2 rounded-md text-secondary font-semibold text-lg uppercase hover:text-primary transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -83,14 +83,14 @@ export default function NavbarClient({ content }: NavbarClientProps) {
       >
         <nav className="bg-white border-t px-4 py-4 space-y-2">
           {content.links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="block px-3 py-2 rounded-md text-secondary font-semibold text-lg uppercase hover:text-primary hover:bg-gray-50 transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
       </div>

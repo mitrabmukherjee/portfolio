@@ -15,7 +15,7 @@ export default function ContactSection() {
           <h2 className="text-3xl font-normal mb-8 max-w-lg">
             Get in touch with{" "}
             <span className="text-4xl text-white font-bold">
-            Sue Loney
+            Deanna Copping
             </span>
           </h2>
           <a
