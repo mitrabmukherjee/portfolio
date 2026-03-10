@@ -30,7 +30,7 @@ export default function ReachOutSection() {
   const contactMethods = [
     {
       icon: Phone,
-      title: "GIVE US A CALL",
+      title: "GIVE ME A CALL",
       content: "Phone: +82405-71283",
       href: "tel:+8240571283",
     },
