@@ -135,7 +135,7 @@ export default function ContactPage() {
         <div
           className="absolute block inset-0 bg-cover bg-bottom-left bg-no-repeat opacity-100"
           style={{
-            backgroundImage: "url('/images/innerbg.jpg')",
+            backgroundImage: "url('/images/innerbg.avif')",
             backgroundPosition: "left center",
           }}
         />
@@ -254,20 +254,7 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div>
-                    <select
-                      name="requirement"
-                      value={formData.requirement}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black"
-                    >
-                      <option value="">Please Select Requirement</option>
-                      <option value="transcript">Court Transcript</option>
-                      <option value="captioning">Live Captioning</option>
-                      <option value="consultation">Consultation</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
+                  
 
                   <div>
                     <textarea

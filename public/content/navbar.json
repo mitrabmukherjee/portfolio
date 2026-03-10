@@ -1,9 +1,9 @@
 {
-  "brand": "Deanna Copping",
+  "brand": "Mitra Brinda Mukherjee",
   "links": [
     { "label": "Home", "href": "/" },
-    { "label": "About Deanna Copping", "href": "/about" },
-    { "label": "Order A Transcript", "href": "/order" },
+    { "label": "About Mitra Brinda Mukherjee", "href": "/about" },
+    { "label": "See My Projects", "href": "/projects" },
     { "label": "Contact", "href": "/contact" }
   ]
 }

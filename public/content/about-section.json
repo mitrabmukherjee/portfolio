@@ -1,12 +1,12 @@
 {
   "title": "About",
-  "name": "Deanna Copping",
-  "subtitle": "Ontario Authorized Court Transcriptionist",
-  "description": "I am an Authorized Court Transcriptionist with a focused practice in criminal proceedings, including Charter applications and appellate work.",
+  "name": "Mitra Brinda Mukherjee",
+  "subtitle": "AI-ML Developer",
+  "description": "I am an AI-ML Developer with a strong interest in building practical, end-to-end intelligent systems.",
   "actId": "",
   "image": {
-    "src": "/images/Deanna-Copping-Photo.png",
-    "alt": "Deanna Copping"
+    "src": "/images/mitra.jpeg",
+    "alt": "Mitra Brinda Mukherjee"
   },
   "button": {
     "text": "Get in touch",

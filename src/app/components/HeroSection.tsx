@@ -6,12 +6,7 @@ import { useState } from "react";
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const slides = [
-    "/images/slide1.jpg",
-    "/images/slide2.jpg",
-    "/images/slide3.jpg",
-    "/images/slide4.jpg",
-  ];
+  const slides = ["/images/mitra.jpeg"];
 
   return (
     <section
@@ -112,50 +107,32 @@ export default function HeroSection() {
             className="flex flex-col lg:flex-row items-start lg:items-end lg:justify-around gap-8"
           >
             {/* Left side - Text content */}
-            <div className="w-full lg:flex-1 lg:max-w-2xl uppercase text-left lg:text-left self-start lg:self-end">
-              {activeIndex === 0 && (
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-2xl md:text-4xl text-white drop-shadow-lg"
-                >
-                  The Ontario <br /> Standard
-                </motion.h1>
-              )}
-
-              {activeIndex === 1 && (
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-2xl md:text-4xl text-white drop-shadow-lg"
-                >
-                  Advocating <br /> for Accuracy
-                </motion.h1>
-              )}
-
-              {activeIndex === 2 && (
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-2xl md:text-4xl text-white drop-shadow-lg"
-                >
-                  Precision for <br /> Your Case
-                </motion.h1>
-              )}
-
-              {activeIndex === 3 && (
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-2xl md:text-4xl text-white drop-shadow-lg"
-                >
-                  On Time. <br /> On Record.
-                </motion.h1>
-              )}
+            <div className="w-full lg:flex-1 lg:max-w-2xl text-left lg:text-left self-start lg:self-end">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-3xl md:text-5xl text-white drop-shadow-lg font-bold"
+              >
+                Mitra Brinda Mukherjee
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="mt-4 text-xl md:text-2xl text-white/90 uppercase tracking-wide"
+              >
+                AI-ML Developer
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="mt-4 text-base md:text-lg text-white max-w-xl normal-case"
+              >
+                Building intelligent systems for automated malware analysis, deepfake
+                detection, and real-world AI applications in Python and deep learning.
+              </motion.p>
             </div>
 
             {/* Right side - Button */}
@@ -172,12 +149,12 @@ export default function HeroSection() {
                 <div className="absolute inset-0 rounded-full border border-white pulse-ring-3" />
 
                 <motion.a
-                  href="/order"
+                  href="/projects"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="relative bg-white text-secondary px-8 py-4 rounded-full text-xl font-semibold hover:bg-secondary hover:text-white transition-colors shadow-lg inline-block z-10"
                 >
-                  Order A Transcript
+                  View Projects
                 </motion.a>
               </motion.div>
             </div>

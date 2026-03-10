@@ -1,25 +1,15 @@
 {
-  "copyright": "Deanna Copping",
+  "copyright": "Mitra Brinda Mukherjee",
   "socialLinks": [
     {
-      "icon": "Facebook",
-      "href": "#",
-      "ariaLabel": "Facebook"
+      "icon": "Linkedin",
+      "href": "https://www.linkedin.com/in/mitrabrindaa/",
+      "ariaLabel": "Linkedin"
     },
     {
-      "icon": "Youtube",
-      "href": "#",
-      "ariaLabel": "YouTube"
-    },
-    {
-      "icon": "Instagram",
-      "href": "#",
-      "ariaLabel": "Instagram"
-    },
-    {
-      "icon": "MessageCircle",
-      "href": "#",
-      "ariaLabel": "WhatsApp"
+      "icon": "Github",
+      "href": "https://github.com/mitrabrindaa",
+      "ariaLabel": "Github"
     }
   ]
 }

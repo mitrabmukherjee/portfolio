@@ -25,9 +25,9 @@ const alice = Alice({
 });
 
 export const metadata: Metadata = {
-  title: "Deanna Copping - Court Transcription Services",
+  title: "Mitra Brinda Mukherjee - AI-ML Developer",
   description:
-    "Professional court transcription services specializing in criminal proceedings, Charter applications, and appellate work. Accurate, reliable, and trusted by legal professionals.",
+    "Personal portfolio of Mitra Brinda Mukherjee, an AI-ML Developer showcasing projects in AI, machine learning, deep learning, and data science.",
   icons: {
     icon: "/images/Copping-Transcription-Logo.png",
     shortcut: "/images/Copping-Transcription-Logo.png",

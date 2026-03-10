@@ -1,34 +1,29 @@
 {
   "header": {
-    "title": "Ontario Court Transcriptionist"
+    "title": "AI-ML Developer"
   },
   "contactInfo": [
     {
       "icon": "Phone",
       "title": "Call Us",
-      "content": "+1 (647) 933-5464"
+      "content": "+91 82405 71283"
     },
     {
       "icon": "Mail",
       "title": "Email Us",
-      "content": "dcopping@actontario.ca"
+      "content": "mitrabrindasjd24@gmail.com"
     },
     {
       "icon": "Share2",
       "title": "Social Networks",
       "socialLinks": [
         {
-          "icon": "Facebook",
-          "href": "https://www.facebook.com/sue.loney.39",
-          "ariaLabel": "Facebook"
-        },
-        {
           "icon": "Linkedin",
-          "href": "https://www.linkedin.com/in/susan-loney-4b71a2269/",
+          "href": "https://www.linkedin.com/in/mitrabrindaa/",
           "ariaLabel": "Linkedin"
         }
       ]
     }
   ],
-  "backgroundImage": "/images/innerbg.jpg"
+  "backgroundImage": "/images/slide1.jpg"
 }

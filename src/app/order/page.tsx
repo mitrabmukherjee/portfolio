@@ -159,7 +159,7 @@ export default function OrderTranscriptPage() {
       <div className="bg-secondary py-4">
         <div className="mx-auto max-w-7xl w-full px-4">
           <h1 className="text-3xl md:text-4xl font-normal text-white text-center font-alice">
-            Order A Transcript
+            Projects
           </h1>
         </div>
       </div>
@@ -170,7 +170,7 @@ export default function OrderTranscriptPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
           style={{
-            backgroundImage: "url('/images/innerbg.jpg')",
+            backgroundImage: "url('/images/innerbg.avif')",
             backgroundPosition: "left center",
           }}
         />
@@ -181,8 +181,8 @@ export default function OrderTranscriptPage() {
             <div className="lg:col-span-1">
               <div className="flex flex-col items-center space-y-6">
                 <Image
-                  src="/images/Deanna-Copping-Photo.png"
-                  alt="Deanna Copping"
+                  src="/Mitra_brinda.jpeg"
+                  alt="Mitra Brinda Mukherjee"
                   width={300}
                   height={300}
                   className="rounded-lg shadow-lg"
@@ -202,7 +202,7 @@ export default function OrderTranscriptPage() {
                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                       />
                     </svg>
-                    <span className="text-xl font-bold">+1 (647) 933-5464</span>
+                    <span className="text-xl font-bold">Phone: +XX-XXXX-XXXX</span>
                   </div>
                 </div>
               </div>

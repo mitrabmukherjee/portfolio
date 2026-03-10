@@ -1,13 +1,13 @@
 {
   "title": "Get in touch with",
-  "name": "Deanna Copping",
+  "name": "Mitra Brinda Mukherjee",
   "image": {
-    "src": "/images/getaquote.jpg",
+    "src": "/images/slide1.jpg",
     "alt": "Get in touch"
   },
   "button": {
-    "text": "ORDER A TRANSCRIPT",
-    "href": "/order",
+    "text": "SEE MY PROJECTS",
+    "href": "/projects",
     "icon": "FileText"
   }
 }

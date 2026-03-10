@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       sendMail1(
         confirmationEmail,
         email,
-        "Thank You for Your Contact - Deanna Copping Court Transcription Services"
+        "Thank You for Your Contact - Mitra Brinda Mukherjee AI-ML Portfolio"
       );
 
       // Send notification email to admin

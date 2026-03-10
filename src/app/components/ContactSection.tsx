@@ -6,7 +6,7 @@ export default function ContactSection() {
       <div className="mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 items-center text-white">
         <div>
           <img
-            src="/images/getaquote.jpg"
+            src="/images/slide1.jpg"
             alt="Get in touch"
             className="w-full h-64 object-cover object-top shadow"
           />
@@ -15,16 +15,16 @@ export default function ContactSection() {
           <h2 className="text-3xl font-normal mb-8 max-w-lg">
             Get in touch with{" "}
             <span className="text-4xl text-white font-bold">
-            Deanna Copping
+              Mitra Brinda Mukherjee
             </span>
           </h2>
           <a
-            href="/order"
+            href="/projects"
             className="inline-flex items-center gap-3 bg-transparent text-white border-2 border-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-primary transition-colors shadow-xl"
             style={{ boxShadow: "8px 8px 0px 0px rgba(0, 0, 0, 0.2)" }}
           >
             <FileText className="w-6 h-6" />
-            ORDER A TRANSCRIPT
+            VIEW PROJECTS
           </a>
         </div>
       </div>

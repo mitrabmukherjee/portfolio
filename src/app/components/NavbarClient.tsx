@@ -21,26 +21,30 @@ interface NavbarClientProps {
 export default function NavbarClient({ content }: NavbarClientProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const links = content.links.map((link) => {
+    if (link.href === "/order" || link.label.toLowerCase().includes("order")) {
+      return {
+        ...link,
+        label: "Projects",
+        href: "/projects",
+      };
+    }
+    return link;
+  });
+
   return (
     <header id="site-navbar" className="sticky top-0 z-50 bg-white border-b">
       <div className="mx-auto w-full py-3 flex items-center justify-between max-w-7xl px-4">
         <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/images/Copping-Transcription-Logo.png"
-            alt={content.brand}
-            width={200}
-            height={60}
-            className="h-auto w-auto max-h-16"
-            priority
-          />
+        <Image src="/images/MitraBrinda1.jpeg" alt="Mitra Brinda Mukherjee Logo" width={200} height={60} className="h-auto w-auto max-h-16" priority />
           <span className="text-4xl font-semibold italic tracking-tight glossy-text text-primary uppercase pr-2">
-            {content.brand}
+            Mitra Brinda Mukherjee
           </span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4">
-          {content.links.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -82,7 +86,7 @@ export default function NavbarClient({ content }: NavbarClientProps) {
         }`}
       >
         <nav className="bg-white border-t px-4 py-4 space-y-2">
-          {content.links.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}

@@ -31,14 +31,14 @@ export default function ReachOutSection() {
     {
       icon: Phone,
       title: "GIVE US A CALL",
-      content: "+1 (647) 933-5464",
-      href: "tel:+16479335464",
+      content: "Phone: +82405-71283",
+      href: "tel:+8240571283",
     },
     {
       icon: Mail,
       title: "SEND AN EMAIL",
-      content: "dcopping@actontario.ca",
-      href: "mailto:dcopping@actontario.ca",
+      content: "mitrabrindasjd24@gmail.com",
+      href: "mailto:mitrabrindasjd24@gmail.com",
     },
     {
       icon: Clock,

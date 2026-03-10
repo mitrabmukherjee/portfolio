@@ -29,7 +29,7 @@ export default async function Topbar() {
           >
             <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
           </svg>
-          {content.phone}
+          Phone: {content.phone}
         </span>
         <div className="overflow-hidden w-full max-w-md bg-secondary p-2 py-3 text-center text-xl h-full">
           <div className="topbar-text-container">

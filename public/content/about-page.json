@@ -1,21 +1,21 @@
 {
   "header": {
-    "title": "About Deanna Copping"
+    "title": "About Mitra Brinda Mukherjee"
   },
   "profile": {
     "image": {
-      "src": "/images/Deanna-Copping-Photo.png",
-      "alt": "Deanna Copping",
+      "src": "/images/mitra.jpeg",
+      "alt": "Mitra Brinda Mukherjee",
       "width": 300,
       "height": 300
     },
-    "title": "I am an Authorized Court Transcriptionist with a focused practice in criminal proceedings, including Charter applications and appellate work.",
+    "title": "I am an AI-ML Developer with a focused practice in building practical, end-to-end intelligent systems.",
     "actId": ""
   },
   "biography": "",
   "button": {
-    "text": "ORDER A TRANSCRIPT",
+    "text": "See My Projects",
     "href": "/order"
   },
-  "backgroundImage": "/images/innerbg.jpg"
+  "backgroundImage": "/images/slide1.jpg"
 }

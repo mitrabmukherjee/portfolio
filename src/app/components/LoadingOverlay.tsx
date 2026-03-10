@@ -84,14 +84,7 @@ export default function LoadingOverlay() {
       aria-hidden={phase === "exiting"}
       onTransitionEnd={handleTransitionEnd}
     >
-      <Image
-        src="/images/Copping-Transcription-Logo.png"
-        alt="Copping Transcription"
-        width={280}
-        height={84}
-        className="h-auto w-auto max-w-[280px] object-contain"
-        priority
-      />
+      
       <div className="mt-8 flex items-center gap-2">
         <span
           className="loading-dot h-2 w-2 rounded-full bg-primary"
