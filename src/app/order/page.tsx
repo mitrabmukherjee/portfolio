@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import ReachOutSection from "@/app/components/ReachOutSection";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useReCaptcha } from "@/app/components/ReCaptchaProvider";
 import { toast } from "sonner";
 
 export default function OrderTranscriptPage() {
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  const executeRecaptcha = useReCaptcha();
   const initialFormData = {
     // Case Details
     styleOfCause: "",
@@ -158,7 +158,7 @@ export default function OrderTranscriptPage() {
       {/* Page Header */}
       <div className="bg-secondary py-4">
         <div className="mx-auto max-w-7xl w-full px-4">
-          <h1 className="text-3xl md:text-4xl font-normal text-white text-center font-alice">
+          <h1 className="text-3xl md:text-4xl font-normal text-primary text-center font-alice">
             Projects
           </h1>
         </div>
@@ -321,7 +321,7 @@ export default function OrderTranscriptPage() {
                         <button
                           type="button"
                           onClick={addProceedingDate}
-                          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors flex items-center"
+                          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary hover:text-primary transition-colors flex items-center"
                         >
                           <span className="mr-2">+</span> Add Date
                         </button>
@@ -979,7 +979,7 @@ export default function OrderTranscriptPage() {
                       className={`font-semibold py-4 px-12 rounded-lg transition-colors duration-300 shadow-lg transform hover:scale-105 ${
                         isSubmitting
                           ? "bg-gray-400 text-gray-700 cursor-not-allowed"
-                          : "bg-primary text-white hover:bg-secondary"
+                          : "bg-primary text-white hover:bg-secondary hover:text-primary"
                       }`}
                     >
                       {isSubmitting ? "Submitting..." : "Submit Court Order"}

@@ -1,96 +1,95 @@
 import nodemailer from "nodemailer";
 
-const sendMail1 = (
-  htmlContent: string,
-  receiverEmail: string,
-  subject: string = "Mail From Deanna Copping"
-) => {
+// Support both SMTP_USER/SMTP_PASS and SMTP_EMAIL/SMTP_PASSWORD
+function getSmtpAuth() {
+  const user = process.env.SMTP_USER || process.env.SMTP_EMAIL;
+  const pass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD;
+  return { user, pass };
+}
+
+function createTransporter() {
   const port = parseInt(process.env.SMTP_PORT || "465", 10);
   const host = process.env.SMTP_HOST || "smtp.gmail.com";
-  const senderEmail = process.env.SMTP_EMAIL;
-  const password = process.env.SMTP_PASSWORD;
+  const { user, pass } = getSmtpAuth();
 
-  if (!senderEmail || !password) {
-    console.error(
-      "SMTP credentials are missing. Please check your environment variables."
+  if (!user || !pass) {
+    throw new Error(
+      "SMTP credentials missing. Set SMTP_USER and SMTP_PASS (or SMTP_EMAIL and SMTP_PASSWORD) in .env.local at the project root."
     );
-    return;
   }
 
-  const transporter = nodemailer.createTransport({
-    host: host,
-    port: port,
-    secure: port === 465, // true for 465, false for other ports
-    auth: {
-      user: senderEmail,
-      pass: password,
-    },
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass },
   });
+}
 
+/**
+ * Send email to the person who submitted the form (confirmation).
+ */
+export function sendMail1(
+  htmlContent: string,
+  receiverEmail: string,
+  subject: string = "Mail From Mitra Brinda Mukherjee"
+): Promise<void> {
+  const { user } = getSmtpAuth();
+  if (!user) return Promise.reject(new Error("SMTP credentials missing."));
+
+  const transporter = createTransporter();
   const mailOptions = {
-    from: `"Deanna Copping" <${senderEmail}>`,
+    from: `"Mitra Brinda Mukherjee" <${user}>`,
     to: receiverEmail,
-    subject: subject,
-    text: htmlContent,
-    html: htmlContent,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return console.log("Error while sending email:", error);
-    }
-    console.log("Email sent successfully:", info.response);
-  });
-};
-
-const sendMail2 = (
-  htmlContent: string,
-  receiverEmail: string,
-  subject: string = "Mail From Deanna Copping",
-  senderName: string = "Deanna Copping"
-) => {
-  const port = parseInt(process.env.SMTP_PORT || "465", 10);
-  const host = process.env.SMTP_HOST || "smtp.gmail.com";
-  const senderEmail = process.env.SMTP_EMAIL;
-  const password = process.env.SMTP_PASSWORD;
-
-  if (!senderEmail || !password) {
-    console.error(
-      "SMTP credentials are missing. Please check your environment variables."
-    );
-    return;
-  }
-
-  const transporter = nodemailer.createTransport({
-    host: host,
-    port: port,
-    secure: port === 465, // true for 465, false for other ports
-    auth: {
-      user: senderEmail,
-      pass: password,
-    },
-  });
-
-  const mailOptions = {
-    from: `"${senderName}" <${receiverEmail}>`,
-    replyTo: receiverEmail,
-    to: senderEmail,
     subject,
-    text: htmlContent,
+    text: htmlContent.replace(/<[^>]*>/g, ""),
     html: htmlContent,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return console.log("Error while sending email:", error);
-    }
-    console.log(
-      "From:",
-      mailOptions.from,
-      "Email sent successfully:",
-      info.response
-    );
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending confirmation email:", error);
+        reject(error);
+      } else {
+        console.log("Confirmation email sent:", info.response);
+        resolve();
+      }
+    });
   });
-};
+}
 
-export { sendMail1, sendMail2 };
+/**
+ * Send notification email to you (admin) when someone submits the contact form.
+ */
+export function sendMail2(
+  htmlContent: string,
+  submitterEmail: string,
+  subject: string = "New Contact Form Submission",
+  submitterName: string = "Contact Form"
+): Promise<void> {
+  const { user } = getSmtpAuth();
+  if (!user) return Promise.reject(new Error("SMTP credentials missing."));
+
+  const transporter = createTransporter();
+  const mailOptions = {
+    from: `"Portfolio Contact" <${user}>`,
+    to: user, // send to yourself so you receive the submission
+    replyTo: submitterEmail,
+    subject,
+    text: htmlContent.replace(/<[^>]*>/g, ""),
+    html: htmlContent,
+  };
+
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending notification email:", error);
+        reject(error);
+      } else {
+        console.log("Notification email sent to you:", info.response);
+        resolve();
+      }
+    });
+  });
+}

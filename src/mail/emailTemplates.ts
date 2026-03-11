@@ -1,8 +1,8 @@
 // Email template constants
-const BUSINESS_NAME = "Deanna Copping";
-const PERSON_NAME = "Deanna Copping";
-const CONTACT_PHONE = "+1 (647) 933-5464";
-const CONTACT_ADDRESS = "Serving legal professionals across Ontario";
+const BUSINESS_NAME = "Mitra Brinda Mukherjee";
+const PERSON_NAME = "Mitra Brinda Mukherjee";
+const CONTACT_PHONE = "+91 82405 71283";
+const CONTACT_ADDRESS = "Serving India";
 
 interface ProceedingDate {
   date?: string;

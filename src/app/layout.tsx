@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { Geist_Mono, SUSE, Alice } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar";
-import Topbar from "@/app/components/Topbar";
 import Footer from "@/app/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import ReCaptchaProvider from "@/app/components/ReCaptchaProvider";
 import LoadingOverlay from "@/app/components/LoadingOverlay";
+import ScrollProgressBar from "@/app/components/ScrollProgressBar";
+import ScrollToTop from "@/app/components/ScrollToTop";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -46,10 +47,11 @@ export default function RootLayout({
         className={`${geistMono.variable} ${suse.variable} ${alice.variable} antialiased`}
       >
         <LoadingOverlay />
+        <ScrollProgressBar />
         <ReCaptchaProvider>
-          <Topbar />
           <Navbar />
           {children}
+          <ScrollToTop />
           <Toaster position="top-right" richColors />
           <Footer />
         </ReCaptchaProvider>

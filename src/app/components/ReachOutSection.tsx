@@ -1,28 +1,46 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Phone, Mail, Clock, LucideIcon } from "lucide-react";
+import TiltCard from "@/app/components/TiltCard";
+import ScrambleText from "@/app/components/ScrambleText";
+import TypewriterText from "@/app/components/TypewriterText";
 
 interface ContactCardProps {
   icon: LucideIcon;
   title: string;
   content: string;
   href: string;
+  index: number;
 }
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
 
 function ContactCard({ icon: Icon, title, content, href }: ContactCardProps) {
   return (
-    <a
-      className="p-4 sm:p-6 bg-gradient-to-r from-[#3e1d6b] to-transparent hover:from-[#4a2a7a] hover:to-white/10 transition-all duration-300 shadow-lg mb-2"
-      href={href}
-    >
+    <motion.div variants={cardVariants} transition={{ duration: 0.4 }} className="h-full">
+      <TiltCard className="rounded-2xl overflow-hidden h-full" maxTilt={6}>
+        <a
+          href={href}
+          className="group block p-6 sm:p-8 rounded-2xl bg-primary/95 hover:bg-primary border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 h-full"
+        >
       <div className="flex flex-col">
-        <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-3 sm:mb-4" />
-        <div className="text-white text-xs sm:text-sm font-semibold mb-2 leading-tight">
+        <div className="mb-4 inline-flex w-12 h-12 items-center justify-center rounded-xl bg-white/15 group-hover:bg-secondary/30 transition-colors">
+          <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+        </div>
+        <div className="text-secondary text-xs sm:text-sm font-mono font-semibold tracking-wider mb-2">
           {title}
         </div>
-        <div className="text-white text-sm sm:text-base md:text-lg font-bold leading-tight break-words">
+        <div className="text-white text-base sm:text-lg font-bold leading-snug break-words">
           {content}
         </div>
       </div>
-    </a>
+        </a>
+      </TiltCard>
+    </motion.div>
   );
 }
 
@@ -49,15 +67,31 @@ export default function ReachOutSection() {
   ];
 
   return (
-    <section id="reach-out" className="py-10 md:py-24 bg-secondary">
-      <div className="mx-auto max-w-7xl w-full px-8">
-        <h2 className="text-3xl md:text-4xl mb-4 text-white text-center tracking-wide">
-          Reach out today
+    <section id="reach-out" className="navbar-dark-zone relative py-16 md:py-24 bg-primary tech-grid-light">
+      <div className="relative mx-auto max-w-7xl w-full px-4 md:px-8">
+        <span className="tech-label text-secondary font-semibold block text-center mb-2">reach_out</span>
+        <h2 className="font-alice text-3xl md:text-4xl mb-3 text-white text-center tracking-wide">
+          <ScrambleText text="Reach out today" as="span" delay={0} scrambleDuration={900} />
         </h2>
-        <p className="text-white mb-8 text-center text-2xl sm:text-3xl lg:text-4xl font-bold">
-          For any additional questions, get in touch
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mb-10 text-center max-w-2xl mx-auto">
+          <TypewriterText
+            text="For any additional questions, get in touch"
+            as="p"
+            className="text-white/95 text-xl sm:text-2xl font-semibold"
+            duration={2.2}
+            delay={0.5}
+          />
+        </div>
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-30px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.12, delayChildren: 0.08 } },
+            hidden: {},
+          }}
+        >
           {contactMethods.map((method, index) => (
             <ContactCard
               key={index}
@@ -65,9 +99,10 @@ export default function ReachOutSection() {
               title={method.title}
               content={method.content}
               href={method.href}
+              index={index}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-## Deanna-Copping-ACT-Website
+## Mitra Brinda Mukherjee Protfolio
 
 Next.js application
 

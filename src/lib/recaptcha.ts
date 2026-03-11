@@ -1,10 +1,12 @@
 export async function verifyRecaptcha(token: string): Promise<boolean> {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
 
+  // Allow through when reCAPTCHA is not configured (e.g. local dev)
   if (!secretKey) {
-    console.error("reCAPTCHA secret key is not configured");
+    if (token === "no-recaptcha-key-configured") return true;
     return false;
   }
+  if (token === "no-recaptcha-key-configured") return false;
 
   try {
     const response = await fetch(

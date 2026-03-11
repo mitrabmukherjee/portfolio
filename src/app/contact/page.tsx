@@ -3,7 +3,7 @@ import { Phone, Mail, Share2, Facebook, Loader2, Linkedin } from "lucide-react";
 import { useState, useEffect } from "react";
 import ReachOutSection from "@/app/components/ReachOutSection";
 import { toast } from "sonner";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useReCaptcha } from "@/app/components/ReCaptchaProvider";
 
 interface ContactInfoItem {
   icon: string;
@@ -27,7 +27,7 @@ interface ContactPageContent {
 }
 
 export default function ContactPage() {
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  const executeRecaptcha = useReCaptcha();
   const [content, setContent] = useState<ContactPageContent | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [formData, setFormData] = useState({
@@ -93,9 +93,10 @@ export default function ContactPage() {
           comments: "",
         });
       } else {
-        toast.error(
-          result.message || "Failed to send message. Please try again."
-        );
+        const msg = result.error
+          ? `${result.message}: ${result.error}`
+          : result.message || "Failed to send message. Please try again.";
+        toast.error(msg);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -120,8 +121,10 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Page Header */}
-      <div className="bg-secondary py-4 font-alice">
+      {/* Espresso spacer so content is not hidden under fixed navbar */}
+      <div className="bg-primary pt-24 md:pt-28" aria-hidden />
+      {/* Page Header - dark zone for navbar text */}
+      <div className="navbar-dark-zone bg-primary py-10 md:py-12 font-alice">
         <div className="mx-auto max-w-7xl w-full px-4">
           <h1 className="text-4xl md:text-5xl font-normal text-white text-center">
             {content.header.title}
@@ -130,27 +133,24 @@ export default function ContactPage() {
       </div>
 
       {/* Main Content */}
-      <div className="relative bg-white py-16">
-        {/* Background Image */}
-        <div
-          className="absolute block inset-0 bg-cover bg-bottom-left bg-no-repeat opacity-100"
-          style={{
-            backgroundImage: "url('/images/innerbg.avif')",
-            backgroundPosition: "left center",
-          }}
-        />
+      <div className="relative bg-white py-16 md:py-20 tech-grid">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -left-32 top-40 w-96 h-96 bg-gradient-to-r from-primary/5 to-transparent rounded-full blur-3xl" />
+          <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-gradient-to-l from-secondary/5 to-transparent rounded-full blur-3xl" />
+        </div>
 
         <div className="relative mx-auto max-w-7xl w-full px-4">
-          {/* Section Header */}
-          <div className="bg-secondary text-white py-4 px-6 rounded-t-lg ">
-            <h2 className="text-2xl font-bold text-center">
+          {/* Section Header - dark zone for navbar text */}
+          <div className="navbar-dark-zone bg-primary text-white py-5 px-6 rounded-t-2xl border-b border-white/10">
+            <span className="tech-label text-secondary/90 block text-center mb-1">form</span>
+            <h2 className="text-xl md:text-2xl font-bold text-center font-mono">
               {content.sectionHeader.title}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-tertiary">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-tertiary rounded-b-2xl overflow-hidden shadow-xl">
             {/* Left Column - Contact Information */}
-            <div className="p-8 bg-tertiary">
+            <div className="p-8 md:p-10 bg-tertiary">
               <div className="space-y-8">
                 {content.contactInfo.map((item, index) => {
                   const IconComponent =
@@ -215,8 +215,9 @@ export default function ContactPage() {
             </div>
 
             {/* Right Column - Contact Form */}
-            <div className="bg-tertiary p-8">
-              <div className="p-6 bg-white">
+            <div className="bg-tertiary p-8 md:p-10">
+              <div className="relative p-6 md:p-8 bg-white rounded-2xl shadow-sm border border-primary/10 overflow-hidden">
+                <div className="absolute left-0 top-0 bottom-0 w-1 tech-accent-bar" aria-hidden />
                 <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
                     <input
@@ -225,7 +226,7 @@ export default function ContactPage() {
                       value={formData.fullName}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black placeholder:text-black"
+                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
                       placeholder="Full Name*"
                     />
                   </div>
@@ -237,7 +238,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black placeholder:text-black"
+                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
                       placeholder="Phone Number*"
                     />
                   </div>
@@ -249,7 +250,7 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black placeholder:text-black"
+                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
                       placeholder="Email*"
                     />
                   </div>
@@ -262,14 +263,14 @@ export default function ContactPage() {
                       value={formData.comments}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary text-black placeholder:text-black"
+                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow resize-none"
                       placeholder="Additional Comments"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-primary hover:bg-secondary text-white font-bold py-4 px-8 rounded transition-colors duration-300"
+                    className="w-full bg-primary hover:bg-secondary text-white hover:text-primary font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-lg active:scale-[0.99]"
                   >
                     SUBMIT
                   </button>

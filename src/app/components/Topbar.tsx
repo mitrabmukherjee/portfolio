@@ -31,7 +31,7 @@ export default async function Topbar() {
           </svg>
           Phone: {content.phone}
         </span>
-        <div className="overflow-hidden w-full max-w-md bg-secondary p-2 py-3 text-center text-xl h-full">
+        <div className="overflow-hidden w-full max-w-md bg-secondary text-primary p-2 py-3 text-center text-xl h-full">
           <div className="topbar-text-container">
             {content.services.map((service, idx) => (
               <div key={`${service}-${idx}`} className="topbar-text-item">

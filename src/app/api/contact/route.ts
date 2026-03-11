@@ -42,30 +42,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send confirmation email to user
-    if (email) {
-      const confirmationEmail = getContactConfirmationEmail(fullName, comments);
-      sendMail1(
-        confirmationEmail,
-        email,
-        "Thank You for Your Contact - Mitra Brinda Mukherjee AI-ML Portfolio"
-      );
+    // Send confirmation email to the person who submitted
+    const confirmationEmail = getContactConfirmationEmail(fullName, comments);
+    await sendMail1(
+      confirmationEmail,
+      email,
+      "Thank You for Your Contact - Mitra Brinda Mukherjee"
+    );
 
-      // Send notification email to admin
-      const notificationEmail = getContactNotificationEmail({
-        fullName,
-        email,
-        phone,
-        requirement,
-        comments,
-      });
-      sendMail2(
-        notificationEmail,
-        email,
-        `New Contact Form Submission - ${fullName}`,
-        fullName
-      );
-    }
+    // Send notification email to you (admin) so you receive the submission
+    const notificationEmail = getContactNotificationEmail({
+      fullName,
+      email,
+      phone,
+      requirement,
+      comments,
+    });
+    await sendMail2(
+      notificationEmail,
+      email,
+      `New Contact Form Submission - ${fullName}`,
+      fullName
+    );
 
     return NextResponse.json(
       {

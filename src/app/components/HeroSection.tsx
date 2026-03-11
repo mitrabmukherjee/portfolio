@@ -1,38 +1,32 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Carousel } from "react-responsive-carousel";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import ScrambleText from "@/app/components/ScrambleText";
+import MorphBlob from "@/app/components/MorphBlob";
+import TypewriterText from "@/app/components/TypewriterText";
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const slides = ["/images/mitra.jpeg"];
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "-28%"]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative overflow-hidden"
-      style={{
-        height: "calc(100dvh - (var(--topbar-h,0px) + var(--navbar-h,0px)))",
-      }}
-      // Set CSS variables on the section so height updates responsively when bars change
-      ref={(el) => {
-        if (!el) return;
-        const setSizes = () => {
-          const topbar = document.getElementById("site-topbar");
-          const navbar = document.getElementById("site-navbar");
-          const topH = topbar?.offsetHeight ?? 0;
-          const navH = navbar?.offsetHeight ?? 0;
-          el.style.setProperty("--topbar-h", `${topH}px`);
-          el.style.setProperty("--navbar-h", `${navH}px`);
-        };
-        setSizes();
-        // Listen for resize to remain dynamic/responsive
-        window.addEventListener("resize", setSizes);
-        // Use a microtask to capture layout after hydration
-        requestAnimationFrame(setSizes);
-      }}
+      style={{ height: "100dvh" }}
     >
-      {/* Background Carousel */}
       <div className="absolute inset-0">
         <Carousel
           autoPlay={true}
@@ -54,112 +48,135 @@ export default function HeroSection() {
             <div
               key={index}
               className="w-full overflow-hidden"
-              style={{
-                height:
-                  "calc(100dvh - (var(--topbar-h,0px) + var(--navbar-h,0px)))",
-              }}
+              style={{ height: "100dvh" }}
             >
-              <motion.img
-                src={slide}
-                alt={`Slide ${index + 1}`}
-                className="w-full h-full object-cover"
-                loading="eager"
-                initial={{ scale: 1 }}
-                animate={{ scale: 1.1 }}
-                transition={{
-                  duration: 5,
-                  ease: "linear",
-                }}
-                key={`${slide}-${activeIndex}`}
-                onError={(e) => {
-                  console.error(`Failed to load image: ${slide}`);
-                  console.error(e);
-                }}
-                onLoad={() => {
-                  console.log(`Successfully loaded image: ${slide}`);
-                }}
-              />
+              <motion.div
+                className="absolute left-0 right-0 w-full h-[120%] -top-[10%]"
+                style={{ y: imageY }}
+              >
+                <motion.img
+                  src={slide}
+                  alt={`Slide ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  initial={{ scale: 1 }}
+                  animate={{ scale: 1.08 }}
+                  transition={{ duration: 6, ease: "linear" }}
+                  key={`${slide}-${activeIndex}`}
+                />
+              </motion.div>
             </div>
           ))}
         </Carousel>
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-transparent bg-opacity-40" />
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 z-5">
-        <div
-          className="absolute bottom-0 left-0 right-0 h-[75%]"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(30, 58, 95, 0.95) 0%, transparent 100%)",
-          }}
-        />
+      {/* Gradient overlay for text legibility */}
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(62, 39, 35, 0.92) 0%, rgba(62, 39, 35, 0.4) 40%, transparent 70%)",
+        }}
+      />
+      {/* Tech grid overlay */}
+      <div
+        className="absolute inset-0 z-[1] opacity-30 pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
+
+      {/* Decorative morph blob */}
+      <div className="absolute top-20 right-10 md:right-20 z-[1] pointer-events-none opacity-20">
+        <MorphBlob width={140} height={140} fill="rgba(255,237,172,0.6)" duration={6} />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex items-end h-full pb-8 md:pb-16 lg:pb-32">
-        <div className="w-full mx-auto px-4 w-full">
+      <div className="relative z-10 flex flex-col h-full justify-end pb-10 md:pb-20 lg:pb-24">
+        <div className="mx-auto w-full max-w-7xl px-4">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col lg:flex-row items-start lg:items-end lg:justify-around gap-8"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+              hidden: {},
+            }}
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8"
           >
-            {/* Left side - Text content */}
-            <div className="w-full lg:flex-1 lg:max-w-2xl text-left lg:text-left self-start lg:self-end">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-3xl md:text-5xl text-white drop-shadow-lg font-bold"
+            <div className="lg:max-w-2xl">
+              <motion.span
+                variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.5 }}
+                className="tech-label inline-block text-secondary/90 font-mono mb-3"
               >
-                Mitra Brinda Mukherjee
-              </motion.h1>
+                // portfolio
+              </motion.span>
+              <motion.div variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
+                <ScrambleText
+                  text="Mitra Brinda Mukherjee"
+                  as="h1"
+                  className="font-alice text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight drop-shadow-md"
+                  delay={200}
+                  scrambleDuration={1200}
+                />
+              </motion.div>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-4 text-xl md:text-2xl text-white/90 uppercase tracking-wide"
+                variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.5 }}
+                className="mt-3 text-lg md:text-xl text-white/95 font-mono tracking-wide font-medium"
               >
-                AI-ML Developer
+                AI–ML Developer
               </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="mt-4 text-base md:text-lg text-white max-w-xl normal-case"
-              >
-                Building intelligent systems for automated malware analysis, deepfake
-                detection, and real-world AI applications in Python and deep learning.
-              </motion.p>
-            </div>
-
-            {/* Right side - Button */}
-            <div className="flex-shrink-0 flex justify-center lg:justify-end self-center lg:self-end">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="relative"
+                variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.5 }}
+                className="mt-4 max-w-xl"
               >
-                {/* Pulse animation rings using CSS */}
-                <div className="absolute inset-0 rounded-full border border-white pulse-ring-1" />
-                <div className="absolute inset-0 rounded-full border border-white pulse-ring-2" />
-                <div className="absolute inset-0 rounded-full border border-white pulse-ring-3" />
-
-                <motion.a
-                  href="/projects"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative bg-white text-secondary px-8 py-4 rounded-full text-xl font-semibold hover:bg-secondary hover:text-white transition-colors shadow-lg inline-block z-10"
-                >
-                  View Projects
-                </motion.a>
+                <TypewriterText
+                  text="Building intelligent systems for automated malware analysis, deepfake detection, and real-world AI applications."
+                  as="p"
+                  className="text-base md:text-lg text-white/90 leading-relaxed"
+                  duration={3.2}
+                  delay={0.6}
+                />
               </motion.div>
             </div>
+
+            <motion.div
+              variants={{ hidden: { opacity: 0, scale: 0.96 }, visible: { opacity: 1, scale: 1 } }}
+              transition={{ duration: 0.5 }}
+              className="flex-shrink-0"
+            >
+              <Link
+                href="/projects"
+                className="cta-lift group inline-flex items-center gap-2 bg-white text-primary px-7 py-4 rounded-full text-lg font-semibold hover:bg-secondary hover:text-primary transition-all duration-300 shadow-xl hover:shadow-2xl border-2 border-white/20"
+              >
+                View projects
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
+
+        {/* Scroll hint */}
+        <motion.a
+          href="#about"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/70 hover:text-white transition-colors font-mono group/scroll"
+          aria-label="Scroll to about"
+        >
+          <span className="text-xs tracking-widest group-hover/scroll:opacity-100 transition-opacity">&darr; scroll</span>
+          <motion.span
+            animate={reduceMotion ? undefined : { y: [0, 6, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown className="w-5 h-5" />
+          </motion.span>
+        </motion.a>
       </div>
     </section>
   );
