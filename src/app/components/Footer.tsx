@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Facebook, LinkedinIcon, Twitter, Instagram } from "lucide-react";
+import { LinkedinIcon } from "lucide-react";
 import TypewriterText from "@/app/components/TypewriterText";
 
 const quickLinks = [

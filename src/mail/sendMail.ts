@@ -66,6 +66,7 @@ export function sendMail2(
   htmlContent: string,
   submitterEmail: string,
   subject: string = "New Contact Form Submission",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for API compatibility
   submitterName: string = "Contact Form"
 ): Promise<void> {
   const { user } = getSmtpAuth();

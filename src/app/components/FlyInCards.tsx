@@ -30,9 +30,9 @@ function getCardVariants(index: number) {
       rotateZ: 0,
       opacity: 1,
       transition: {
-        type: "tween",
+        type: "tween" as const,
         duration: 0.9,
-        ease: [0.34, 1.56, 0.64, 1],
+        ease: [0.34, 1.56, 0.64, 1] as const,
       },
     },
   };

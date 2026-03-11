@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 /**
  * Test route to verify the loading page.
  * Visit /loading-test — you should see the loading screen (logo + dots) for 3 seconds, then this message.
@@ -14,12 +16,12 @@ export default async function LoadingTestPage() {
         If you saw the white screen with logo and bouncing dots for about 3
         seconds, the loading page is working correctly.
       </p>
-      <a
+      <Link
         href="/"
         className="mt-6 inline-block text-secondary font-semibold hover:underline"
       >
         ← Back to home
-      </a>
+      </Link>
     </div>
   );
 }

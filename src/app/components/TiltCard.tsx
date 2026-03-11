@@ -3,15 +3,17 @@
 import { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-const TILT_MAX = 24;
+const TILT_MAX_DEFAULT = 24;
 const TILT_PERSPECTIVE = 1000;
 
 export default function TiltCard({
   children,
   className,
+  maxTilt = TILT_MAX_DEFAULT,
 }: {
   children: React.ReactNode;
   className?: string;
+  maxTilt?: number;
 }) {
   const [reduceMotion, setReduceMotion] = useState(false);
   const x = useMotionValue(0);
@@ -35,8 +37,8 @@ export default function TiltCard({
     const centerY = rect.top + rect.height / 2;
     const normX = (e.clientX - centerX) / (rect.width / 2);
     const normY = (e.clientY - centerY) / (rect.height / 2);
-    x.set(normX * TILT_MAX);
-    y.set(-normY * TILT_MAX);
+    x.set(normX * maxTilt);
+    y.set(-normY * maxTilt);
   };
 
   const onMouseLeave = () => {

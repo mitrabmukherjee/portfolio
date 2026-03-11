@@ -19,7 +19,7 @@ const item = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 };
 
@@ -56,7 +56,7 @@ export default function CaseStudySection({ projects }: CaseStudySectionProps) {
         </motion.div>
 
         <div className="space-y-20 md:space-y-28">
-          {withCaseStudy.map((project, projectIndex) => (
+          {withCaseStudy.map((project) => (
             <motion.article
               key={project.id}
               initial="hidden"
