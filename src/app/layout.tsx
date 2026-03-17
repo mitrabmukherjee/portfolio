@@ -6,6 +6,7 @@ import Footer from "@/app/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import ReCaptchaProvider from "@/app/components/ReCaptchaProvider";
 import LoadingOverlay from "@/app/components/LoadingOverlay";
+import PageTransitionBar from "@/app/components/PageTransitionBar";
 import ScrollProgressBar from "@/app/components/ScrollProgressBar";
 import ScrollToTop from "@/app/components/ScrollToTop";
 
@@ -46,11 +47,15 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} ${suse.variable} ${alice.variable} antialiased`}
       >
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <LoadingOverlay />
+        <PageTransitionBar />
         <ScrollProgressBar />
         <ReCaptchaProvider>
           <Navbar />
-          {children}
+          <div id="main-content">{children}</div>
           <ScrollToTop />
           <Toaster position="top-right" richColors />
           <Footer />

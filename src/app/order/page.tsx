@@ -159,7 +159,7 @@ export default function OrderTranscriptPage() {
       <div className="bg-secondary py-4">
         <div className="mx-auto max-w-7xl w-full px-4">
           <h1 className="text-3xl md:text-4xl font-normal text-primary text-center font-alice">
-            Projects
+            Order Transcript
           </h1>
         </div>
       </div>

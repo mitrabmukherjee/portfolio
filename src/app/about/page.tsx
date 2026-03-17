@@ -89,8 +89,7 @@ export default function AboutPage() {
                   text="Building intelligent systems for real-world AI: automated malware analysis, deepfake detection, and explainable machine learning."
                   as="p"
                   className="text-lg md:text-xl text-slate-800 leading-relaxed"
-                  duration={3.5}
-                  delay={0.4}
+                  instant
                 />
               </motion.div>
             </div>
@@ -162,8 +161,7 @@ export default function AboutPage() {
                 text="Dedicated to structured collaboration, strategic thinking, and delivering high-impact AI solutions through effective teamwork and research-driven development."
                 as="p"
                 className="text-slate-800"
-                duration={4}
-                delay={0.3}
+                instant
               />
             </div>
             <Link

@@ -13,16 +13,14 @@ import { projects, type Project } from "@/app/data/projects";
 
 function ProjectCard({
   project,
-  index,
   onCaseStudyClick,
 }: {
   project: Project;
-  index: number;
   onCaseStudyClick?: (project: Project) => void;
 }) {
   const hasCaseStudy = project.caseStudySteps && project.caseStudySteps.length > 0;
   return (
-    <TiltCard className="fly-in-card glass-card group relative h-full rounded-2xl p-6 md:p-8 overflow-hidden min-h-[280px] flex flex-col">
+    <TiltCard className="fly-in-card glass-card project-card-interactive group relative h-full rounded-2xl p-6 md:p-8 overflow-hidden min-h-[280px] flex flex-col" maxTilt={6}>
       <div
         className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity"
         aria-hidden
@@ -40,8 +38,7 @@ function ProjectCard({
           text={project.description}
           as="p"
           className="text-slate-800"
-          duration={2.8}
-          delay={index * 0.5}
+          instant
         />
       </div>
       <div className="mb-4 flex flex-wrap gap-2">
@@ -60,7 +57,7 @@ function ProjectCard({
             href={project.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary transition-colors hover:text-primary"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary transition-all min-h-[44px] items-center px-4 py-2.5 rounded-lg hover:text-primary hover:bg-primary/5 hover:shadow-md"
           >
             {project.hrefLabel ?? "View project"}
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -70,7 +67,7 @@ function ProjectCard({
           <button
             type="button"
             onClick={() => onCaseStudyClick(project)}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-secondary transition-colors px-3 py-1.5 rounded-lg border border-primary/20 hover:border-primary/40 hover:bg-primary/5"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-secondary transition-all min-h-[44px] px-4 py-2.5 rounded-lg border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/10 hover:shadow-md focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
           >
             <FileText className="w-4 h-4" />
             Case study
@@ -105,13 +102,12 @@ export default function ProjectsPage() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="mx-auto mt-4 max-w-2xl text-center"
           >
-            <TypewriterText
-              text="Selected work in AI, machine learning, and security—focused on detection, explainability, and real-world impact."
-              as="p"
-              className="text-white/90 text-lg md:text-xl font-medium"
-              duration={3.2}
-              delay={0.5}
-            />
+<TypewriterText
+          text="Selected work in AI, machine learning, and security—focused on detection, explainability, and real-world impact."
+          as="p"
+          className="text-white/90 text-lg md:text-xl font-medium"
+          instant
+        />
           </motion.div>
         </div>
       </div>
@@ -131,11 +127,10 @@ export default function ProjectsPage() {
           <FlyInCards
             className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10"
           >
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <ProjectCard
                 key={project.id}
                 project={project}
-                index={index}
                 onCaseStudyClick={setCaseStudyProject}
               />
             ))}

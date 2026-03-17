@@ -14,6 +14,7 @@ export default function HeroSection() {
   const slides = ["/images/mitra.jpeg"];
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const isSingleSlide = slides.length === 1;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -21,53 +22,60 @@ export default function HeroSection() {
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "-28%"]);
 
+  const slideContent = (slide: string, index: number) => (
+    <div
+      key={index}
+      className="w-full overflow-hidden"
+      style={{ height: "100dvh" }}
+    >
+      <motion.div
+        className="absolute left-0 right-0 w-full h-[120%] -top-[10%]"
+        style={{ y: imageY }}
+      >
+        <motion.img
+          src={slide}
+          alt={isSingleSlide ? "Mitra Brinda Mukherjee" : `Slide ${index + 1}`}
+          className="w-full h-full object-cover"
+          loading="eager"
+          initial={{ scale: 1 }}
+          animate={{ scale: 1.08 }}
+          transition={{ duration: 6, ease: "linear" }}
+          key={isSingleSlide ? slide : `${slide}-${activeIndex}`}
+        />
+      </motion.div>
+    </div>
+  );
+
   return (
     <section
+      id="top"
       ref={sectionRef}
       className="relative overflow-hidden"
       style={{ height: "100dvh" }}
     >
       <div className="absolute inset-0">
-        <Carousel
-          autoPlay={true}
-          interval={5000}
-          infiniteLoop={true}
-          showArrows={false}
-          showThumbs={false}
-          showStatus={false}
-          showIndicators={false}
-          className="h-full w-full"
-          dynamicHeight={false}
-          stopOnHover={false}
-          useKeyboardArrows={true}
-          swipeable={true}
-          emulateTouch={true}
-          onChange={(index) => setActiveIndex(index as number)}
-        >
-          {slides.map((slide, index) => (
-            <div
-              key={index}
-              className="w-full overflow-hidden"
-              style={{ height: "100dvh" }}
-            >
-              <motion.div
-                className="absolute left-0 right-0 w-full h-[120%] -top-[10%]"
-                style={{ y: imageY }}
-              >
-                <motion.img
-                  src={slide}
-                  alt={`Slide ${index + 1}`}
-                  className="w-full h-full object-cover"
-                  loading="eager"
-                  initial={{ scale: 1 }}
-                  animate={{ scale: 1.08 }}
-                  transition={{ duration: 6, ease: "linear" }}
-                  key={`${slide}-${activeIndex}`}
-                />
-              </motion.div>
-            </div>
-          ))}
-        </Carousel>
+        {isSingleSlide ? (
+          slideContent(slides[0], 0)
+        ) : (
+          <Carousel
+            autoPlay
+            interval={5000}
+            infiniteLoop
+            showArrows={false}
+            showThumbs={false}
+            showStatus={false}
+            showIndicators={false}
+            className="h-full w-full"
+            dynamicHeight={false}
+            stopOnHover={false}
+            useKeyboardArrows
+            swipeable
+            emulateTouch
+            onChange={(index) => setActiveIndex(index as number)}
+          >
+            {slides.map((slide, index) => slideContent(slide, index))}
+          </Carousel>
+        )}
       </div>
 
       {/* Gradient overlay for text legibility */}

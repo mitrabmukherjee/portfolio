@@ -22,7 +22,7 @@ export default function ScrollToTop() {
     <motion.button
       type="button"
       onClick={scrollToTop}
-      className="fixed bottom-24 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-secondary hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 cta-lift"
+      className="fixed bottom-6 left-6 md:bottom-24 z-40 flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-secondary hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 cta-lift"
       initial={false}
       animate={{
         opacity: visible ? 1 : 0,

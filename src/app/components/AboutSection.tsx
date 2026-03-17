@@ -76,8 +76,7 @@ export default function AboutSection() {
                   text="I'm an AI-ML Developer focused on applying machine learning and deep learning to real-world problems. I build end-to-end systems from data preparation and modelling through to deployment and evaluation."
                   as="p"
                   className="text-slate-800 leading-relaxed"
-                  duration={4}
-                  delay={0.3}
+                  instant
                 />
               </motion.div>
             </div>

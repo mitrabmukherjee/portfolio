@@ -9,11 +9,11 @@ import SectionNavRail from "./components/SectionNavRail";
 
 export default function Home() {
   return (
-    <main id="top" className="min-h-screen relative">
+    <main className="min-h-screen relative">
       <HeroSection />
       <AboutSection />
-      <ContactSection />
       <ServicesSection />
+      <ContactSection />
       <ReachOutSection />
       <SectionNavRail />
     </main>

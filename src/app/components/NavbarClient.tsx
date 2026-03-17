@@ -82,11 +82,12 @@ export default function NavbarClient({ content }: NavbarClientProps) {
           ))}
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button - 44px min touch target */}
         <button
-          className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-lg hover:opacity-80 transition-opacity"
+          className="md:hidden flex flex-col items-center justify-center min-w-[44px] min-h-[44px] rounded-lg hover:opacity-80 transition-opacity gap-1"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle mobile menu"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
         >
           <span
             className={`w-6 h-0.5 transition-all duration-300 ${iconBarClass} ${
@@ -112,12 +113,22 @@ export default function NavbarClient({ content }: NavbarClientProps) {
           isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <nav className="bg-secondary/20 backdrop-blur-md border-t border-primary/10 rounded-b-2xl px-4 py-4 space-y-1">
+        <nav className="bg-secondary/20 backdrop-blur-md border-t border-primary/10 rounded-b-2xl px-4 py-4 space-y-1" aria-label="Mobile navigation">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-primary/70">Menu</span>
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-sm font-semibold text-primary hover:text-secondary underline"
+            >
+              Close
+            </button>
+          </div>
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="block px-4 py-3 rounded-xl text-primary font-semibold text-lg uppercase hover:bg-secondary hover:text-primary transition-colors"
+              className="block px-4 py-3 min-h-[44px] flex items-center rounded-xl text-primary font-semibold text-lg uppercase hover:bg-secondary hover:text-primary transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.label}

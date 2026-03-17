@@ -1,0 +1,2 @@
+* text=auto eol=lf
+*.{cmd,[c]sh} text eol=crlf

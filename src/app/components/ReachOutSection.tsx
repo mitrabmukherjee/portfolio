@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { Phone, Mail, Clock, LucideIcon } from "lucide-react";
 import TiltCard from "@/app/components/TiltCard";
 import ScrambleText from "@/app/components/ScrambleText";
@@ -20,25 +21,34 @@ const cardVariants = {
 };
 
 function ContactCard({ icon: Icon, title, content, href }: ContactCardProps) {
+  const isInternal = href.startsWith("/");
+  const linkClass =
+    "group block p-6 sm:p-8 rounded-2xl bg-primary/95 hover:bg-primary border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 h-full";
+  const inner = (
+    <div className="flex flex-col">
+      <div className="mb-4 inline-flex w-12 h-12 items-center justify-center rounded-xl bg-white/15 group-hover:bg-secondary/30 transition-colors">
+        <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+      </div>
+      <div className="text-secondary text-xs sm:text-sm font-mono font-semibold tracking-wider mb-2">
+        {title}
+      </div>
+      <div className="text-white text-base sm:text-lg font-bold leading-snug break-words">
+        {content}
+      </div>
+    </div>
+  );
   return (
     <motion.div variants={cardVariants} transition={{ duration: 0.4 }} className="h-full">
       <TiltCard className="rounded-2xl overflow-hidden h-full" maxTilt={6}>
-        <a
-          href={href}
-          className="group block p-6 sm:p-8 rounded-2xl bg-primary/95 hover:bg-primary border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 h-full"
-        >
-      <div className="flex flex-col">
-        <div className="mb-4 inline-flex w-12 h-12 items-center justify-center rounded-xl bg-white/15 group-hover:bg-secondary/30 transition-colors">
-          <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-        </div>
-        <div className="text-secondary text-xs sm:text-sm font-mono font-semibold tracking-wider mb-2">
-          {title}
-        </div>
-        <div className="text-white text-base sm:text-lg font-bold leading-snug break-words">
-          {content}
-        </div>
-      </div>
-        </a>
+        {isInternal ? (
+          <Link href={href} className={linkClass}>
+            {inner}
+          </Link>
+        ) : (
+          <a href={href} className={linkClass}>
+            {inner}
+          </a>
+        )}
       </TiltCard>
     </motion.div>
   );
@@ -49,8 +59,8 @@ export default function ReachOutSection() {
     {
       icon: Phone,
       title: "GIVE ME A CALL",
-      content: "Phone: +82405-71283",
-      href: "tel:+8240571283",
+      content: "Phone: +91 82405 71283",
+      href: "tel:+91 8240571283",
     },
     {
       icon: Mail,
@@ -60,9 +70,9 @@ export default function ReachOutSection() {
     },
     {
       icon: Clock,
-      title: "GET IN TOUCH",
-      content: "Make a Quick Enquiry",
-      href: "#contact",
+      title: "SEND A MESSAGE",
+      content: "Contact form",
+      href: "/contact",
     },
   ];
 
@@ -78,8 +88,7 @@ export default function ReachOutSection() {
             text="For any additional questions, get in touch"
             as="p"
             className="text-white/95 text-xl sm:text-2xl font-semibold"
-            duration={2.2}
-            delay={0.5}
+            instant
           />
         </div>
         <motion.div

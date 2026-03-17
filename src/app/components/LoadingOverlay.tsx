@@ -4,15 +4,21 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 const STORAGE_KEY = "loading-overlay-shown";
+const SKIP_AFTER_MS = 1200;
+const FALLBACK_MS = 1500;
 
 const CUBE_SIZE = 56;
 
 export default function LoadingOverlay() {
   const pathname = usePathname();
   const [phase, setPhase] = useState<"visible" | "exiting" | "gone">("visible");
+  const [showSkip, setShowSkip] = useState(false);
   const initialPathname = useRef<string | null>(null);
 
   const startExit = useCallback(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem(STORAGE_KEY, "1");
+    }
     setPhase("exiting");
   }, []);
 
@@ -42,32 +48,40 @@ export default function LoadingOverlay() {
     const tryHide = () => {
       const elapsed = Date.now() - start;
       if (elapsed >= minDisplayTime) {
-        if (typeof window !== "undefined") {
-          sessionStorage.setItem(STORAGE_KEY, "1");
-        }
         startExit();
       } else {
         setTimeout(tryHide, minDisplayTime - elapsed);
       }
     };
 
+    const skipTimer = setTimeout(() => setShowSkip(true), SKIP_AFTER_MS);
+
     if (document.readyState === "complete") {
       tryHide();
     } else {
       window.addEventListener("load", tryHide);
-      const t = setTimeout(tryHide, 2000);
+      const t = setTimeout(tryHide, FALLBACK_MS);
       return () => {
         window.removeEventListener("load", tryHide);
         clearTimeout(t);
+        clearTimeout(skipTimer);
       };
     }
+    return () => clearTimeout(skipTimer);
   }, [pathname, startExit]);
 
-  const handleTransitionEnd = (e: React.TransitionEvent) => {
-    if (e.propertyName === "opacity" && phase === "exiting") {
-      setPhase("gone");
-    }
-  };
+  const handleTransitionEnd = useCallback(
+    (e: React.TransitionEvent) => {
+      try {
+        if (e?.propertyName === "opacity" && phase === "exiting") {
+          setPhase("gone");
+        }
+      } catch {
+        /* ignore */
+      }
+    },
+    [phase]
+  );
 
   if (phase === "gone") return null;
 
@@ -176,19 +190,30 @@ export default function LoadingOverlay() {
         </div>
       </div>
 
-      <div className="mt-8 flex items-center gap-2">
-        <span
-          className="loading-dot h-2 w-2 rounded-full bg-primary"
-          style={{ animationDelay: "0ms" }}
-        />
-        <span
-          className="loading-dot h-2 w-2 rounded-full bg-primary"
-          style={{ animationDelay: "150ms" }}
-        />
-        <span
-          className="loading-dot h-2 w-2 rounded-full bg-primary"
-          style={{ animationDelay: "300ms" }}
-        />
+      <div className="mt-8 flex flex-col items-center gap-4">
+        <div className="flex items-center gap-2">
+          <span
+            className="loading-dot h-2 w-2 rounded-full bg-primary"
+            style={{ animationDelay: "0ms" }}
+          />
+          <span
+            className="loading-dot h-2 w-2 rounded-full bg-primary"
+            style={{ animationDelay: "150ms" }}
+          />
+          <span
+            className="loading-dot h-2 w-2 rounded-full bg-primary"
+            style={{ animationDelay: "300ms" }}
+          />
+        </div>
+        {showSkip && (
+          <button
+            type="button"
+            onClick={() => startExit()}
+            className="text-sm font-mono text-primary/70 hover:text-primary underline transition-colors"
+          >
+            Skip
+          </button>
+        )}
       </div>
     </div>
   );

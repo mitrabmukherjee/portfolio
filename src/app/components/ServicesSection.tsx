@@ -45,8 +45,7 @@ export default function ServicesSection() {
               text="Technologies and focus areas I work with."
               as="p"
               className="text-slate-800"
-              duration={2}
-              delay={0.4}
+              instant
             />
           </div>
         </motion.div>

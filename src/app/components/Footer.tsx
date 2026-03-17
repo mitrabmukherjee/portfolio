@@ -35,8 +35,7 @@ export default function Footer() {
                 text="AI-ML Developer focusing on applied machine learning, deep learning, and data-driven solutions."
                 as="p"
                 className="text-sm text-white/80 leading-relaxed"
-                duration={3}
-                delay={0.5}
+                instant
               />
             </div>
             <div className="text-xs text-white/70 font-mono tracking-wide">
@@ -88,7 +87,7 @@ export default function Footer() {
             </h3>
             <div className="flex flex-col items-center md:items-start gap-3 text-sm">
               <a
-                href="tel:+8240571283"
+                href="tel:+91 8240571283"
                 className="link-hover-underline hover:text-secondary transition-colors inline-block"
               >
                 Phone: +91 82405 71283

@@ -11,6 +11,8 @@ interface TypewriterTextProps {
   as?: "p" | "span" | "div";
   showCursor?: boolean;
   cursorChar?: string;
+  /** Skip animation and show text instantly */
+  instant?: boolean;
 }
 
 export default function TypewriterText({
@@ -21,14 +23,15 @@ export default function TypewriterText({
   as: Tag = "p",
   showCursor = true,
   cursorChar = "|",
+  instant = false,
 }: TypewriterTextProps) {
-  const [display, setDisplay] = useState("");
-  const [done, setDone] = useState(false);
+  const [display, setDisplay] = useState(instant ? text : "");
+  const [done, setDone] = useState(instant);
   const reduceMotion = useReducedMotion();
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    if (reduceMotion) {
+    if (reduceMotion || instant) {
       setDisplay(text);
       setDone(true);
       return;
@@ -58,7 +61,7 @@ export default function TypewriterText({
       clearTimeout(startAfter);
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [text, duration, delay, reduceMotion]);
+  }, [text, duration, delay, reduceMotion, instant]);
 
   return (
     <span className={className ? `inline ${className}` : "inline"}>

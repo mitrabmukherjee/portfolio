@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import TypewriterText from "@/app/components/TypewriterText";
 import type { Project } from "@/app/data/projects";
+
+const FOCUSABLE =
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 interface CaseStudyModalProps {
   project: Project | null;
@@ -13,15 +16,45 @@ interface CaseStudyModalProps {
 
 export default function CaseStudyModal({ project, onClose }: CaseStudyModalProps) {
   const isOpen = project != null && project.caseStudySteps && project.caseStudySteps.length > 0;
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousActiveRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
-    const onEscape = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onEscape);
+    previousActiveRef.current = document.activeElement as HTMLElement | null;
+    const raf = requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || !modalRef.current) return;
+      const focusables = modalRef.current.querySelectorAll<HTMLElement>(FOCUSABLE);
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
     document.body.style.overflow = "hidden";
+
     return () => {
-      window.removeEventListener("keydown", onEscape);
+      cancelAnimationFrame(raf);
+      window.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
+      previousActiveRef.current?.focus();
     };
   }, [isOpen, onClose]);
 
@@ -39,6 +72,7 @@ export default function CaseStudyModal({ project, onClose }: CaseStudyModalProps
             aria-hidden
           />
           <motion.div
+            ref={modalRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="case-study-title"
@@ -61,10 +95,11 @@ export default function CaseStudyModal({ project, onClose }: CaseStudyModalProps
                 </h2>
               </div>
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={onClose}
                 className="p-2 rounded-full text-primary hover:bg-primary/10 transition-colors"
-                aria-label="Close"
+                aria-label="Close case study"
               >
                 <X className="w-5 h-5" />
               </button>

@@ -26,25 +26,31 @@ interface ContactPageContent {
   contactInfo: ContactInfoItem[];
 }
 
+type FieldErrors = Partial<Record<keyof typeof initialFormData, string>>;
+
+const initialFormData = {
+  fullName: "",
+  phone: "",
+  email: "",
+  requirement: "",
+  comments: "",
+};
+
 export default function ContactPage() {
   const executeRecaptcha = useReCaptcha();
   const [content, setContent] = useState<ContactPageContent | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    phone: "",
-    email: "",
-    requirement: "",
-    comments: "",
-  });
+  const [contentLoading, setContentLoading] = useState<boolean>(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
     const fetchContent = async () => {
-      setLoading(true);
+      setContentLoading(true);
       const response = await fetch("/content/contact-page.json");
       const data = await response.json();
       setContent(data);
-      setLoading(false);
+      setContentLoading(false);
     };
     fetchContent();
   }, []);
@@ -54,44 +60,45 @@ export default function ContactPage() {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const name = e.target.name as keyof FieldErrors;
+    setFormData({ ...formData, [name]: e.target.value });
+    if (fieldErrors[name]) setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const validate = (): boolean => {
+    const errors: FieldErrors = {};
+    if (!formData.fullName.trim()) errors.fullName = "Full name is required.";
+    if (!formData.phone.trim()) errors.phone = "Phone number is required.";
+    if (!formData.email.trim()) errors.email = "Email is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    if (!validate()) return;
     if (!executeRecaptcha) {
       toast.error("reCAPTCHA not ready. Please try again.");
       return;
     }
 
-    setLoading(true);
+    setIsSubmitting(true);
     try {
       const recaptchaToken = await executeRecaptcha("contact_form_submit");
 
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          recaptchaToken,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, recaptchaToken }),
       });
       const result = await response.json();
       if (result.success) {
         toast.success("Your message has been sent successfully!");
-        setFormData({
-          fullName: "",
-          phone: "",
-          email: "",
-          requirement: "",
-          comments: "",
-        });
+        setFormData(initialFormData);
+        setFieldErrors({});
       } else {
         const msg = result.error
           ? `${result.message}: ${result.error}`
@@ -104,11 +111,11 @@ export default function ContactPage() {
         "There was an error sending your message. Please try again later."
       );
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
-  if (!content || loading) {
+  if (!content || contentLoading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
@@ -225,10 +232,17 @@ export default function ContactPage() {
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
+                      disabled={isSubmitting}
+                      aria-invalid={!!fieldErrors.fullName}
+                      aria-describedby={fieldErrors.fullName ? "fullName-error" : undefined}
+                      className={`w-full px-4 py-3.5 border-2 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow disabled:opacity-70 ${
+                        fieldErrors.fullName ? "border-red-500" : "border-primary/20"
+                      }`}
                       placeholder="Full Name*"
                     />
+                    {fieldErrors.fullName && (
+                      <p id="fullName-error" className="mt-1 text-sm text-red-600">{fieldErrors.fullName}</p>
+                    )}
                   </div>
 
                   <div>
@@ -237,10 +251,16 @@ export default function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
+                      disabled={isSubmitting}
+                      aria-invalid={!!fieldErrors.phone}
+                      className={`w-full px-4 py-3.5 border-2 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow disabled:opacity-70 ${
+                        fieldErrors.phone ? "border-red-500" : "border-primary/20"
+                      }`}
                       placeholder="Phone Number*"
                     />
+                    {fieldErrors.phone && (
+                      <p className="mt-1 text-sm text-red-600">{fieldErrors.phone}</p>
+                    )}
                   </div>
 
                   <div>
@@ -249,13 +269,17 @@ export default function ContactPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
+                      disabled={isSubmitting}
+                      aria-invalid={!!fieldErrors.email}
+                      className={`w-full px-4 py-3.5 border-2 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow disabled:opacity-70 ${
+                        fieldErrors.email ? "border-red-500" : "border-primary/20"
+                      }`}
                       placeholder="Email*"
                     />
+                    {fieldErrors.email && (
+                      <p className="mt-1 text-sm text-red-600">{fieldErrors.email}</p>
+                    )}
                   </div>
-
-                  
 
                   <div>
                     <textarea
@@ -263,16 +287,25 @@ export default function ContactPage() {
                       value={formData.comments}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow resize-none"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow resize-none disabled:opacity-70"
                       placeholder="Additional Comments"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-primary hover:bg-secondary text-white hover:text-primary font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-lg active:scale-[0.99]"
+                    disabled={isSubmitting}
+                    className="w-full bg-primary hover:bg-secondary text-white hover:text-primary font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-lg active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    SUBMIT
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" aria-hidden />
+                        Sending...
+                      </>
+                    ) : (
+                      "SUBMIT"
+                    )}
                   </button>
                 </form>
               </div>
