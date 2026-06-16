@@ -15,7 +15,7 @@ const highlights = [
   {
     icon: GraduationCap,
     label: "Education",
-    value: "Exchange Alumni, Texas A&M",
+    value: "Sister Nivedita University",
     color: "text-purple-500",
     bg: "bg-purple-500/10",
   },
