@@ -55,7 +55,7 @@ export default function ContactSection() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-6xl font-alice font-bold text-primary mb-6"
           >
-            Let's build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">future</span>.
+            Let&apos;s build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">future</span>.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

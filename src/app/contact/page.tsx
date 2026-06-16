@@ -82,13 +82,13 @@ export default function ContactPage() {
             </span>
           </div>
           <h1 className="text-5xl md:text-7xl font-alice font-bold text-primary leading-tight mb-4">
-            Let's work<br />
+            Let&apos;s work<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
               together.
             </span>
           </h1>
           <p className="text-lg text-primary/60 max-w-xl font-suse">
-            Fill out the form below and I'll get back to you within 24 hours. Or reach out directly through any of the channels on the right.
+            Fill out the form below and I&apos;ll get back to you within 24 hours. Or reach out directly through any of the channels on the right.
           </p>
         </motion.div>
 
@@ -105,7 +105,7 @@ export default function ContactPage() {
                 <CheckCircle className="w-16 h-16 text-green-500" />
                 <div>
                   <h2 className="text-2xl font-bold text-primary mb-2">Message Sent!</h2>
-                  <p className="text-primary/60">Thank you for reaching out. I'll reply to you shortly.</p>
+                  <p className="text-primary/60">Thank you for reaching out. I&apos;ll reply to you shortly.</p>
                 </div>
                 <button
                   onClick={() => setStatus("idle")}

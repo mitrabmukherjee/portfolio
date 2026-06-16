@@ -63,7 +63,7 @@ export default function AboutSection() {
             </h2>
             <div className="space-y-4 text-primary/70 font-suse leading-relaxed mb-8">
               <p>
-                I'm an AI-ML Developer focused on applying cutting-edge machine learning and deep learning to real-world problems — from automated malware detection to identifying synthetic media at scale.
+                I&apos;m an AI-ML Developer focused on applying cutting-edge machine learning and deep learning to real-world problems — from automated malware detection to identifying synthetic media at scale.
               </p>
               <p>
                 Currently working as a Junior AI Engineer at <span className="text-primary font-semibold">Steora Systems</span> in Kolkata, and a past Research Intern & Exchange Alumni at <span className="text-primary font-semibold">Texas A&M University</span>, where I collaborated with faculty on applied ML research.

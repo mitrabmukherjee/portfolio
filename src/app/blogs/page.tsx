@@ -88,7 +88,7 @@ export default function BlogsPage() {
             <div className="text-5xl mb-6">✍️</div>
             <h2 className="text-2xl font-alice font-bold text-primary mb-3">Articles coming soon</h2>
             <p className="text-primary/50 font-suse max-w-md">
-              I'm working on articles about AI, machine learning, and research. Check back soon!
+              I&apos;m working on articles about AI, machine learning, and research. Check back soon!
             </p>
           </div>
         )}
