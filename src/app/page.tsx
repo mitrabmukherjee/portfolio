@@ -5,7 +5,6 @@ import AboutSection from "./components/AboutSection";
 import ServicesSection from "./components/ServicesSection";
 import ExperienceTimeline from "./components/ExperienceTimeline";
 import ContactSection from "./components/ContactSection";
-import SectionNavRail from "./components/SectionNavRail";
 import NeuralBackground from "./components/NeuralBackground";
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
         <ServicesSection />
         <ContactSection />
       </div>
-      <SectionNavRail />
     </main>
   );
 }

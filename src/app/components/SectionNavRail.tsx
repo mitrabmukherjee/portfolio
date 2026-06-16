@@ -70,15 +70,7 @@ export default function SectionNavRail() {
               style={{ width: 10, height: 10 }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
             />
-            <span
-              className={`hidden lg:inline font-mono tracking-wide uppercase text-[10px] px-2 py-1 rounded-full transition-all duration-200 shadow-sm ${
-                isActive
-                  ? "opacity-100 translate-y-0 bg-secondary/20 text-primary"
-                  : "opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 bg-white/80"
-              }`}
-            >
-              {section.label}
-            </span>
+
           </Link>
         );
       })}
