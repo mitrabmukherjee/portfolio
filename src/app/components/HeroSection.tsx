@@ -122,8 +122,8 @@ export default function HeroSection() {
               {/* Accents decorators around image */}
               <div className="absolute -bottom-6 -left-6 z-20 w-24 h-24 bg-background/50 backdrop-blur-md rounded-2xl border border-primary/10 flex items-center justify-center shadow-lg">
                  <div className="text-center">
-                    <span className="block font-bold text-xl text-primary">2+</span>
-                    <span className="block text-xs uppercase tracking-wider text-primary/60">Years Exp</span>
+                    <span className="block font-bold text-xl text-primary">Entry</span>
+                    <span className="block text-xs uppercase tracking-wider text-primary/60">Level</span>
                  </div>
               </div>
             </motion.div>

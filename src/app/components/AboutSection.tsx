@@ -117,7 +117,7 @@ export default function AboutSection() {
               className="col-span-2 p-5 rounded-2xl border border-primary/10 bg-gradient-to-r from-blue-500/10 to-purple-500/10 flex items-center justify-around"
             >
               {[
-                { num: "2+", label: "Years experience" },
+                { num: "Entry", label: "Level" },
                 { num: "2", label: "Major projects" },
                 { num: "2", label: "Organisations" },
               ].map(({ num, label }) => (
