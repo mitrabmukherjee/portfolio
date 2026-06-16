@@ -1,109 +1,156 @@
-import Link from "next/link";
-import { LinkedinIcon } from "lucide-react";
-import TypewriterText from "@/app/components/TypewriterText";
+"use client";
 
-const quickLinks = [
-  { label: "About", href: "/about" },
+import Link from "next/link";
+import { Github, Linkedin, Mail, Phone, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+const navLinks = [
+  { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
+  { label: "Blogs", href: "/blogs" },
   { label: "Contact", href: "/contact" },
 ];
 
 const socialLinks = [
-  { icon: LinkedinIcon, href: "https://www.linkedin.com/in/mitrabrindaa/", label: "LinkedIn" },
+  {
+    label: "LinkedIn",
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/mitrabrindaa/",
+  },
+  {
+    label: "GitHub",
+    icon: Github,
+    href: "https://github.com/",
+  },
+  {
+    label: "Email",
+    icon: Mail,
+    href: "mailto:mitrabrindasjd24@gmail.com",
+  },
 ];
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="navbar-dark-zone relative bg-primary text-white border-t border-white/10 overflow-hidden">
+    <footer className="relative bg-background border-t border-primary/10 overflow-hidden">
+      {/* subtle grid pattern */}
       <div
-        className="absolute inset-0 opacity-15 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,237,172,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,237,172,0.2) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
+            "linear-gradient(var(--color-primary) / 0.04) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--color-primary) / 0.04) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
         }}
       />
-      <div className="relative mx-auto max-w-7xl w-full px-4 md:px-6 py-10 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-y-8 gap-x-8 md:gap-x-12 md:gap-y-8">
-          {/* Column 1: About & Copyright/Social */}
-          <div className="flex flex-col items-center md:items-start gap-5">
-            <h3 className="text-lg font-bold text-secondary font-alice">
-              Mitra Brinda Mukherjee
-            </h3>
-            <div className="text-center md:text-left">
-              <TypewriterText
-                text="AI-ML Developer focusing on applied machine learning, deep learning, and data-driven solutions."
-                as="p"
-                className="text-sm text-white/80 leading-relaxed"
-                instant
-              />
-            </div>
-            <div className="text-xs text-white/70 font-mono tracking-wide">
-              © {new Date().getFullYear()} · Mitra Brinda Mukherjee
-            </div>
-            <div className="flex flex-col items-center md:items-start gap-3">
-              <h4 className="text-sm font-semibold text-secondary font-mono uppercase tracking-wider">
-                Follow
-              </h4>
-              <div className="flex items-center gap-3">
-                {socialLinks.map(({ icon: Icon, href, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-secondary transition-all duration-200 p-2.5 border border-white/30 rounded-full hover:border-secondary hover:scale-110 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-primary"
-                    aria-label={label}
-                  >
-                    <Icon className="w-4 h-4" />
-                  </a>
-                ))}
-              </div>
+
+      {/* Top accent line — gradient */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      <div className="relative max-w-7xl mx-auto px-6 pt-16 pb-10">
+        {/* Main grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+          {/* Brand column */}
+          <div className="md:col-span-5">
+            <Link href="/" className="inline-block mb-5">
+              <span className="font-alice text-2xl font-bold text-primary">
+                Mitra Brinda Mukherjee
+              </span>
+            </Link>
+            <p className="text-sm text-primary/60 leading-relaxed max-w-xs font-suse mb-6">
+              AI-ML Developer focused on building intelligent systems — from malware detection to generative models. Currently at Steora Systems & Texas A&M.
+            </p>
+            {/* Social icons */}
+            <div className="flex items-center gap-3">
+              {socialLinks.map(({ label, icon: Icon, href }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-10 h-10 flex items-center justify-center rounded-full border border-primary/15 bg-primary/5 text-primary/60 hover:text-primary hover:border-primary/40 hover:bg-primary/10 transition-all"
+                >
+                  <Icon className="w-4 h-4" />
+                </motion.a>
+              ))}
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="flex flex-col items-center md:items-start gap-5">
-            <h3 className="text-lg font-bold text-secondary font-mono uppercase tracking-wider">
-              Quick Links
+          {/* Spacer */}
+          <div className="hidden md:block md:col-span-1" />
+
+          {/* Navigation */}
+          <div className="md:col-span-3">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-widest text-primary/40 mb-5">
+              Navigate
             </h3>
-            <nav className="flex flex-col items-center md:items-start gap-3">
-              {quickLinks.map((link) => (
+            <nav className="flex flex-col gap-3">
+              {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="link-hover-underline text-sm hover:text-secondary transition-colors inline-block"
+                  className="group inline-flex items-center gap-1.5 text-sm text-primary/70 hover:text-primary transition-colors font-suse"
                 >
                   {link.label}
+                  <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                 </Link>
               ))}
             </nav>
           </div>
 
-          {/* Column 3: Contact Details */}
-          <div className="flex flex-col items-center md:items-start gap-5">
-            <h3 className="text-lg font-bold text-secondary font-mono uppercase tracking-wider">
-              Contact
+          {/* Contact details */}
+          <div className="md:col-span-3">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-widest text-primary/40 mb-5">
+              Reach Out
             </h3>
-            <div className="flex flex-col items-center md:items-start gap-3 text-sm">
+            <div className="flex flex-col gap-4">
               <a
-                href="tel:+91 8240571283"
-                className="link-hover-underline hover:text-secondary transition-colors inline-block"
+                href="tel:+918240571283"
+                className="group flex items-center gap-3 text-sm text-primary/70 hover:text-primary transition-colors"
               >
-                Phone: +91 82405 71283
+                <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-primary/5 border border-primary/10 group-hover:border-primary/30 transition-colors">
+                  <Phone className="w-3.5 h-3.5" />
+                </span>
+                +91 82405 71283
               </a>
               <a
                 href="mailto:mitrabrindasjd24@gmail.com"
-                className="link-hover-underline hover:text-secondary transition-colors break-all inline-block"
+                className="group flex items-center gap-3 text-sm text-primary/70 hover:text-primary transition-colors break-all"
               >
+                <span className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg bg-primary/5 border border-primary/10 group-hover:border-primary/30 transition-colors">
+                  <Mail className="w-3.5 h-3.5" />
+                </span>
                 mitrabrindasjd24@gmail.com
+              </a>
+              <a
+                href="https://www.linkedin.com/in/mitrabrindaa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 text-sm text-primary/70 hover:text-primary transition-colors"
+              >
+                <span className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg bg-primary/5 border border-primary/10 group-hover:border-primary/30 transition-colors">
+                  <Linkedin className="w-3.5 h-3.5" />
+                </span>
+                linkedin.com/in/mitrabrindaa
               </a>
             </div>
           </div>
+        </div>
 
-          {/* Column 4: Vertical line */}
-          <div className="flex items-start justify-center md:justify-end pt-1">
-            <div className="hidden md:block w-px h-28 bg-white/30" aria-hidden />
+        {/* Bottom bar */}
+        <div className="h-px w-full bg-primary/10 mb-8" />
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-primary/40 font-mono">
+            © {year} Mitra Brinda Mukherjee · All rights reserved.
+          </p>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-xs text-primary/40 font-mono">
+              Open to opportunities
+            </span>
           </div>
         </div>
       </div>

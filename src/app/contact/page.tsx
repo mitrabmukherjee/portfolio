@@ -1,320 +1,292 @@
 "use client";
-import { Phone, Mail, Share2, Facebook, Loader2, Linkedin } from "lucide-react";
-import { useState, useEffect } from "react";
-import ReachOutSection from "@/app/components/ReachOutSection";
-import { toast } from "sonner";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Send, Phone, Mail, Linkedin, CheckCircle, AlertCircle, Terminal } from "lucide-react";
+import Link from "next/link";
 import { useReCaptcha } from "@/app/components/ReCaptchaProvider";
+import { toast } from "sonner";
 
-interface ContactInfoItem {
-  icon: string;
-  title: string;
-  content?: string;
-  socialLinks?: Array<{
-    icon: string;
-    href: string;
-    ariaLabel: string;
-  }>;
-}
-
-interface ContactPageContent {
-  header: {
-    title: string;
-  };
-  sectionHeader: {
-    title: string;
-  };
-  contactInfo: ContactInfoItem[];
-}
-
-type FieldErrors = Partial<Record<keyof typeof initialFormData, string>>;
-
-const initialFormData = {
-  fullName: "",
-  phone: "",
-  email: "",
-  requirement: "",
-  comments: "",
-};
+type FormState = "idle" | "loading" | "success" | "error";
 
 export default function ContactPage() {
+  const [form, setForm] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    requirement: "",
+    comments: "",
+  });
+  const [status, setStatus] = useState<FormState>("idle");
   const executeRecaptcha = useReCaptcha();
-  const [content, setContent] = useState<ContactPageContent | null>(null);
-  const [contentLoading, setContentLoading] = useState<boolean>(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-  const [formData, setFormData] = useState(initialFormData);
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      setContentLoading(true);
-      const response = await fetch("/content/contact-page.json");
-      const data = await response.json();
-      setContent(data);
-      setContentLoading(false);
-    };
-    fetchContent();
-  }, []);
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const name = e.target.name as keyof FieldErrors;
-    setFormData({ ...formData, [name]: e.target.value });
-    if (fieldErrors[name]) setFieldErrors((prev) => ({ ...prev, [name]: "" }));
-  };
-
-  const validate = (): boolean => {
-    const errors: FieldErrors = {};
-    if (!formData.fullName.trim()) errors.fullName = "Full name is required.";
-    if (!formData.phone.trim()) errors.phone = "Phone number is required.";
-    if (!formData.email.trim()) errors.email = "Email is required.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = "Please enter a valid email address.";
-    }
-    setFieldErrors(errors);
-    return Object.keys(errors).length === 0;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-    if (!executeRecaptcha) {
-      toast.error("reCAPTCHA not ready. Please try again.");
-      return;
-    }
+    setStatus("loading");
 
-    setIsSubmitting(true);
     try {
-      const recaptchaToken = await executeRecaptcha("contact_form_submit");
+      const recaptchaToken = executeRecaptcha
+        ? await executeRecaptcha("contact_form")
+        : "no-recaptcha-key-configured";
 
-      const response = await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, recaptchaToken }),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       });
-      const result = await response.json();
-      if (result.success) {
-        toast.success("Your message has been sent successfully!");
-        setFormData(initialFormData);
-        setFieldErrors({});
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus("success");
+        setForm({ fullName: "", phone: "", email: "", requirement: "", comments: "" });
+        toast.success("Message sent! I'll get back to you soon.");
       } else {
-        const msg = result.error
-          ? `${result.message}: ${result.error}`
-          : result.message || "Failed to send message. Please try again.";
-        toast.error(msg);
+        setStatus("error");
+        toast.error(data.message || "Something went wrong. Please try again.");
       }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error(
-        "There was an error sending your message. Please try again later."
-      );
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      setStatus("error");
+      toast.error("Network error. Please check your connection and try again.");
     }
   };
 
-  if (!content || contentLoading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-12 h-12 text-secondary animate-spin" />
-          <p className="text-lg text-gray-600 font-alice">Loading content...</p>
-        </div>
-      </div>
-    );
-  }
+  const inputClass =
+    "w-full px-4 py-3 rounded-xl bg-background border border-primary/20 text-primary placeholder:text-primary/40 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-mono text-sm";
+  const labelClass = "block text-xs font-mono font-bold uppercase tracking-widest text-primary/50 mb-2";
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Espresso spacer so content is not hidden under fixed navbar */}
-      <div className="bg-primary pt-24 md:pt-28" aria-hidden />
-      {/* Page Header - dark zone for navbar text */}
-      <div className="navbar-dark-zone bg-primary py-10 md:py-12 font-alice">
-        <div className="mx-auto max-w-7xl w-full px-4">
-          <h1 className="text-4xl md:text-5xl font-normal text-white text-center">
-            {content.header.title}
+    <main className="min-h-screen bg-background pt-32 pb-24 px-6 relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-blue-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[400px] bg-purple-500/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-secondary/10 mb-6">
+            <Terminal className="w-4 h-4 text-primary/50" />
+            <span className="text-xs font-mono tracking-wider uppercase text-primary/60">
+              System.connect()
+            </span>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-alice font-bold text-primary leading-tight mb-4">
+            Let's work<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
+              together.
+            </span>
           </h1>
-        </div>
-      </div>
+          <p className="text-lg text-primary/60 max-w-xl font-suse">
+            Fill out the form below and I'll get back to you within 24 hours. Or reach out directly through any of the channels on the right.
+          </p>
+        </motion.div>
 
-      {/* Main Content */}
-      <div className="relative bg-white py-16 md:py-20 tech-grid">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -left-32 top-40 w-96 h-96 bg-gradient-to-r from-primary/5 to-transparent rounded-full blur-3xl" />
-          <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-gradient-to-l from-secondary/5 to-transparent rounded-full blur-3xl" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl w-full px-4">
-          {/* Section Header - dark zone for navbar text */}
-          <div className="navbar-dark-zone bg-primary text-white py-5 px-6 rounded-t-2xl border-b border-white/10">
-            <span className="tech-label text-secondary/90 block text-center mb-1">form</span>
-            <h2 className="text-xl md:text-2xl font-bold text-center font-mono">
-              {content.sectionHeader.title}
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-tertiary rounded-b-2xl overflow-hidden shadow-xl">
-            {/* Left Column - Contact Information */}
-            <div className="p-8 md:p-10 bg-tertiary">
-              <div className="space-y-8">
-                {content.contactInfo.map((item, index) => {
-                  const IconComponent =
-                    item.icon === "Phone"
-                      ? Phone
-                      : item.icon === "Mail"
-                      ? Mail
-                      : item.icon === "Share2"
-                      ? Share2
-                      : Phone;
-
-                  return (
-                    <div key={index} className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
-                        <IconComponent className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-primary mb-2">
-                          {item.title}
-                        </h3>
-                        {item.content && (
-                          <p
-                            className={`${
-                              item.title === "Call Us"
-                                ? "text-xl font-bold"
-                                : "text-lg"
-                            } text-black`}
-                          >
-                            {item.content}
-                          </p>
-                        )}
-                        {item.socialLinks && (
-                          <div className="flex gap-3">
-                            {item.socialLinks.map((social, socialIndex) => {
-                              const SocialIcon =
-                                social.icon === "Facebook"
-                                  ? Facebook
-                                  : social.icon === "Linkedin"
-                                  ? Linkedin
-                                  : Facebook;
-
-                              return (
-                                <a
-                                  key={socialIndex}
-                                  href={social.href}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="w-10 h-10 bg-transparent border-1 border-black hover:bg-gray-100 flex items-center justify-center text-black transition-colors duration-300"
-                                  aria-label={social.ariaLabel}
-                                >
-                                  <SocialIcon className="w-5 h-5" />
-                                </a>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+          {/* Form — wide column */}
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-3"
+          >
+            {status === "success" ? (
+              <div className="flex flex-col items-center justify-center py-24 text-center gap-6 rounded-3xl border border-green-500/20 bg-green-500/5">
+                <CheckCircle className="w-16 h-16 text-green-500" />
+                <div>
+                  <h2 className="text-2xl font-bold text-primary mb-2">Message Sent!</h2>
+                  <p className="text-primary/60">Thank you for reaching out. I'll reply to you shortly.</p>
+                </div>
+                <button
+                  onClick={() => setStatus("idle")}
+                  className="px-6 py-2.5 rounded-full bg-primary text-background text-sm font-semibold hover:opacity-80 transition-opacity"
+                >
+                  Send another message
+                </button>
               </div>
-            </div>
-
-            {/* Right Column - Contact Form */}
-            <div className="bg-tertiary p-8 md:p-10">
-              <div className="relative p-6 md:p-8 bg-white rounded-2xl shadow-sm border border-primary/10 overflow-hidden">
-                <div className="absolute left-0 top-0 bottom-0 w-1 tech-accent-bar" aria-hidden />
-                <form className="space-y-4" onSubmit={handleSubmit}>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
+                    <label htmlFor="fullName" className={labelClass}>Full Name *</label>
                     <input
-                      type="text"
+                      id="fullName"
                       name="fullName"
-                      value={formData.fullName}
+                      type="text"
+                      required
+                      placeholder="Mitra Brinda Mukherjee"
+                      value={form.fullName}
                       onChange={handleChange}
-                      disabled={isSubmitting}
-                      aria-invalid={!!fieldErrors.fullName}
-                      aria-describedby={fieldErrors.fullName ? "fullName-error" : undefined}
-                      className={`w-full px-4 py-3.5 border-2 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow disabled:opacity-70 ${
-                        fieldErrors.fullName ? "border-red-500" : "border-primary/20"
-                      }`}
-                      placeholder="Full Name*"
+                      className={inputClass}
                     />
-                    {fieldErrors.fullName && (
-                      <p id="fullName-error" className="mt-1 text-sm text-red-600">{fieldErrors.fullName}</p>
-                    )}
                   </div>
-
                   <div>
+                    <label htmlFor="phone" className={labelClass}>Phone *</label>
                     <input
-                      type="tel"
+                      id="phone"
                       name="phone"
-                      value={formData.phone}
+                      type="tel"
+                      required
+                      placeholder="+91 00000 00000"
+                      value={form.phone}
                       onChange={handleChange}
-                      disabled={isSubmitting}
-                      aria-invalid={!!fieldErrors.phone}
-                      className={`w-full px-4 py-3.5 border-2 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow disabled:opacity-70 ${
-                        fieldErrors.phone ? "border-red-500" : "border-primary/20"
-                      }`}
-                      placeholder="Phone Number*"
-                    />
-                    {fieldErrors.phone && (
-                      <p className="mt-1 text-sm text-red-600">{fieldErrors.phone}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      aria-invalid={!!fieldErrors.email}
-                      className={`w-full px-4 py-3.5 border-2 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow disabled:opacity-70 ${
-                        fieldErrors.email ? "border-red-500" : "border-primary/20"
-                      }`}
-                      placeholder="Email*"
-                    />
-                    {fieldErrors.email && (
-                      <p className="mt-1 text-sm text-red-600">{fieldErrors.email}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <textarea
-                      name="comments"
-                      value={formData.comments}
-                      onChange={handleChange}
-                      rows={4}
-                      disabled={isSubmitting}
-                      className="w-full px-4 py-3.5 border-2 border-primary/20 rounded-xl bg-white text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow resize-none disabled:opacity-70"
-                      placeholder="Additional Comments"
+                      className={inputClass}
                     />
                   </div>
+                </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-primary hover:bg-secondary text-white hover:text-primary font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-lg active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                <div>
+                  <label htmlFor="email" className={labelClass}>Email *</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@example.com"
+                    value={form.email}
+                    onChange={handleChange}
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="requirement" className={labelClass}>Topic / Requirement</label>
+                  <select
+                    id="requirement"
+                    name="requirement"
+                    value={form.requirement}
+                    onChange={handleChange}
+                    className={inputClass}
                   >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" aria-hidden />
-                        Sending...
-                      </>
-                    ) : (
-                      "SUBMIT"
-                    )}
-                  </button>
-                </form>
+                    <option value="">Select a topic...</option>
+                    <option value="ai-ml-project">AI / ML Project</option>
+                    <option value="research">Research Collaboration</option>
+                    <option value="consulting">Consulting</option>
+                    <option value="internship">Internship / Job Opportunity</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="comments" className={labelClass}>Message</label>
+                  <textarea
+                    id="comments"
+                    name="comments"
+                    rows={5}
+                    placeholder="Tell me about your project, question, or idea..."
+                    value={form.comments}
+                    onChange={handleChange}
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+
+                {status === "error" && (
+                  <div className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-mono">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    Something went wrong. Please try again.
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-primary text-background font-semibold text-base hover:opacity-90 disabled:opacity-50 transition-all group"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-background/30 border-t-background rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </motion.div>
+
+          {/* Sidebar — contact info */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-2 flex flex-col gap-6"
+          >
+            {[
+              {
+                icon: Mail,
+                label: "Email",
+                value: "mitrabrindasjd24@gmail.com",
+                href: "mailto:mitrabrindasjd24@gmail.com",
+                gradient: "from-blue-500/20 to-cyan-500/5",
+              },
+              {
+                icon: Phone,
+                label: "Phone",
+                value: "+91 82405 71283",
+                href: "tel:+918240571283",
+                gradient: "from-green-500/20 to-emerald-500/5",
+              },
+              {
+                icon: Linkedin,
+                label: "LinkedIn",
+                value: "linkedin.com/in/mitrabrindaa",
+                href: "https://www.linkedin.com/in/mitrabrindaa/",
+                gradient: "from-purple-500/20 to-pink-500/5",
+              },
+            ].map(({ icon: Icon, label, value, href, gradient }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                className={`group flex items-center gap-5 p-6 rounded-2xl border border-primary/10 hover:border-primary/30 bg-gradient-to-br ${gradient} transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5`}
+              >
+                <div className="w-12 h-12 rounded-xl bg-background border border-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <Icon className="w-5 h-5 text-primary" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-mono uppercase tracking-widest text-primary/40 mb-0.5">{label}</div>
+                  <div className="text-sm font-semibold text-primary truncate">{value}</div>
+                </div>
+              </a>
+            ))}
+
+            <div className="mt-4 p-6 rounded-2xl border border-primary/10 bg-secondary/5">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-primary/40 mb-3">Response time</h3>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm text-primary/80 font-semibold">Usually within 24 hours</span>
               </div>
             </div>
-          </div>
+
+            <div className="p-6 rounded-2xl border border-primary/10 bg-secondary/5">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-primary/40 mb-3">Based in</h3>
+              <p className="text-sm text-primary/80 font-semibold">Kolkata, India 🇮🇳</p>
+              <p className="text-xs text-primary/50 font-mono mt-1">Open to remote & global work</p>
+            </div>
+
+            <div className="pt-4 border-t border-primary/10">
+              <Link href="/" className="text-sm text-primary/50 hover:text-primary font-mono transition-colors">
+                ← Back to portfolio
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      <ReachOutSection />
-    </div>
+    </main>
   );
 }

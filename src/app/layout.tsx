@@ -9,6 +9,8 @@ import LoadingOverlay from "@/app/components/LoadingOverlay";
 import PageTransitionBar from "@/app/components/PageTransitionBar";
 import ScrollProgressBar from "@/app/components/ScrollProgressBar";
 import ScrollToTop from "@/app/components/ScrollToTop";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import TerminalGame from "@/app/components/TerminalGame";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -43,23 +45,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistMono.variable} ${suse.variable} ${alice.variable} antialiased`}
       >
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <LoadingOverlay />
-        <PageTransitionBar />
-        <ScrollProgressBar />
-        <ReCaptchaProvider>
-          <Navbar />
-          <div id="main-content">{children}</div>
-          <ScrollToTop />
-          <Toaster position="top-right" richColors />
-          <Footer />
-        </ReCaptchaProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <LoadingOverlay />
+          <PageTransitionBar />
+          <ScrollProgressBar />
+          <ReCaptchaProvider>
+            <Navbar />
+            <div id="main-content">{children}</div>
+            <TerminalGame />
+            <ScrollToTop />
+            <Toaster position="top-right" richColors />
+            <Footer />
+          </ReCaptchaProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

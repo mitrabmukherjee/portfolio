@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 type NavbarLink = {
   label: string;
@@ -19,32 +20,10 @@ interface NavbarClientProps {
 
 export default function NavbarClient({ content }: NavbarClientProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [overDark, setOverDark] = useState(false);
 
-  useEffect(() => {
-    const check = () => {
-      const zones = document.querySelectorAll(".navbar-dark-zone");
-      let anyDark = false;
-      zones.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.bottom > 0 && rect.top < 120) anyDark = true;
-      });
-      setOverDark(anyDark);
-    };
-    check();
-    window.addEventListener("scroll", check, { passive: true });
-    window.addEventListener("resize", check);
-    const interval = setInterval(check, 400);
-    return () => {
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
-      clearInterval(interval);
-    };
-  }, []);
-
-  const textClass = overDark ? "text-secondary" : "text-primary";
-  const hoverBgClass = overDark ? "hover:bg-secondary/30 hover:text-primary" : "hover:bg-secondary hover:text-primary";
-  const iconBarClass = overDark ? "bg-secondary" : "bg-primary";
+  const textClass = "text-primary";
+  const hoverBgClass = "hover:bg-primary/10 hover:text-primary";
+  const iconBarClass = "bg-primary";
 
   const links = content.links.map((link) => {
     if (link.href === "/order" || link.label.toLowerCase().includes("order")) {
@@ -60,7 +39,7 @@ export default function NavbarClient({ content }: NavbarClientProps) {
   return (
     <header
       id="site-navbar"
-      className="fixed top-4 left-4 right-4 md:left-6 md:right-6 z-50 rounded-full bg-transparent backdrop-blur-md border border-primary/15 shadow-lg"
+      className="fixed top-4 left-4 right-4 md:left-6 md:right-6 z-50 rounded-full bg-background/80 backdrop-blur-md border border-primary/15 shadow-lg"
     >
       <div className="mx-auto w-full py-3 flex items-center justify-between max-w-7xl px-4 md:px-6">
         <Link href="/" className={`flex items-center gap-3 group transition-colors duration-200 ${textClass}`}>
@@ -80,6 +59,7 @@ export default function NavbarClient({ content }: NavbarClientProps) {
               {link.label}
             </Link>
           ))}
+          <ThemeToggle />
         </nav>
 
         {/* Mobile Menu Button - 44px min touch target */}
