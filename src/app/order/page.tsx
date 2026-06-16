@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import ReachOutSection from "@/app/components/ReachOutSection";
 import { useReCaptcha } from "@/app/components/ReCaptchaProvider";
 import { toast } from "sonner";
 
@@ -991,8 +990,6 @@ export default function OrderTranscriptPage() {
           </div>
         </div>
       </div>
-
-      <ReachOutSection />
     </div>
   );
 }
